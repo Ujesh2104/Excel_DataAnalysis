@@ -1,0 +1,3945 @@
+{
+  "admin": {
+    "email": "ujeshmishra@gmail.com",
+    "name": "Ujesh Mishra (Lead Data Analytics Instructor & Admin)",
+    "role": "SuperAdmin",
+    "accessKey": "ujesh@excelpro2026"
+  },
+  "modules": [
+    {
+      "id": "mod-1",
+      "number": "01",
+      "title": "Excel Core Architecture & Data Analyst Interface",
+      "category": "Foundations",
+      "difficulty": "Beginner",
+      "duration": "45 mins",
+      "badge": "Core Architecture",
+      "description": {
+        "en": "Master workbook navigation, cell referencing ($A$1 vs A1), data types, custom number formatting, and keyboard shortcuts used by senior analysts.",
+        "hi": "Workbook navigation, Cell Referencing ($A$1 vs A1), Data Types, Custom Number Formatting, aur Senior Analysts ke essential shortcuts seekhein."
+      },
+      "definition": {
+        "en": "Excel is a 2D computational matrix engine made of rows (1 to 1,048,576) and columns (A to XFD). Every single cell has a unique coordinate address (e.g. C5). Cell referencing dictates whether that coordinate stays locked or shifts when formulas are copied across rows and columns.",
+        "hi": "Excel ek 2-dimensional calculation engine hai jisme Rows (1 se 1,048,576) aur Columns (A se XFD) hote hain. Har cell ka ek unique address hota hai jaise C5. Cell Referencing ye tay karta hai ki jab aap formula ko drag ya copy karenge to cell ka address wahi rahega (Locked) ya shift hoga (Relative).",
+        "whyItExists": {
+          "en": "Before cell referencing, analysts had to manually retype formulas for every single transaction. Relative referencing ($A1, A$1, $A$1) allows one formula to process millions of rows in milliseconds.",
+          "hi": "Pehle har row ke liye manually calculation likhna padta tha. Relative aur Absolute Referencing ke aane se aap 1 baar formula likhte hain aur pure 50,000 rows par drag karke instantly calculate kar sakte hain."
+        }
+      },
+      "visualFlow": {
+        "title": "Cell Referencing Mechanism Flow",
+        "nodes": [
+          {
+            "label": "A1 (Relative)",
+            "desc": "Both Column & Row shift when dragged (No Dollar Signs)",
+            "color": "#38bdf8"
+          },
+          {
+            "arrow": "➔ Press F4"
+          },
+          {
+            "label": "$A$1 (Absolute)",
+            "desc": "Both Column & Row are LOCKED. Reference never moves",
+            "color": "#10B981"
+          },
+          {
+            "arrow": "➔ Press F4"
+          },
+          {
+            "label": "A$1 (Row Fixed)",
+            "desc": "Row 1 is locked, Column moves freely across A, B, C",
+            "color": "#fbbf24"
+          },
+          {
+            "arrow": "➔ Press F4"
+          },
+          {
+            "label": "$A1 (Col Fixed)",
+            "desc": "Column A is locked, Row moves freely across 1, 2, 3",
+            "color": "#a855f7"
+          }
+        ]
+      },
+      "analystScenario": {
+        "datasetName": "Retail_Sales_Q1.xlsx (45,000 Rows)",
+        "scenario_en": "You are a Junior Data Analyst at RetailCorp. The finance VP hands you an unformatted 45,000-row transactional sheet where Currency values are stored as plain text, tax rates are unanchored causing calculation errors when dragged, and negative profits lack visual flags.",
+        "scenario_hi": "Aap ek Retail Enterprise mein Data Analyst ho. Finance VP ne aapko 45,000 rows ka dataset diya jisme Revenue numbers plain text me hain, fixed tax rate (18%) cell D1 me hai lekin formula drag karne par D2, D3 me drift hokar corrupt ho raha hai, aur loss wale numbers spot nahi ho rahe.",
+        "analystMindset_en": "1. Verify data types using ISNUMBER() and ISTEXT() to eliminate text storage anomalies.\n2. Apply Absolute Referencing ($D$1) to the fixed tax parameter cell before flash-filling down 45,000 rows.\n3. Format financial values with Custom Number Format `_($* #,##0.00_);[Red]_($* (#,##0.00);_($* \"-\"??_);_(@_)` to immediately highlight losses in red.",
+        "analystMindset_hi": "1. Pehle data types check karo taaki koi number string ban kar na baitha ho.\n2. Tax Rate cell ($D$1) ko F4 dabakar absolute lock karo taaki 45,000 rows drag karne par formula sahi calculate kare.\n3. Custom Number Formatting lagao taaki loss wale numbers automatic Red color me brackets ke sath dikhein."
+      },
+      "progressiveExamples": [
+        {
+          "level": "Beginner (Relative Referencing)",
+          "goal": "Calculate Line Item Total (Quantity * Unit Price)",
+          "table": {
+            "headers": [
+              "A: Item",
+              "B: Qty",
+              "C: Price",
+              "D: Total (Formula)"
+            ],
+            "rows": [
+              [
+                "Monitor",
+                "2",
+                "200",
+                "=B2*C2 ➔ 400"
+              ],
+              [
+                "Keyboard",
+                "5",
+                "40",
+                "=B3*C3 ➔ 200"
+              ],
+              [
+                "Mouse",
+                "10",
+                "20",
+                "=B4*C4 ➔ 200"
+              ]
+            ]
+          },
+          "formula": "=B2*C2",
+          "explanation": "When copied from D2 to D3, B2 automatically becomes B3 and C2 becomes C3."
+        },
+        {
+          "level": "Intermediate (Absolute Referencing)",
+          "goal": "Apply a static Global Tax Rate of 18% located at Cell F1",
+          "table": {
+            "headers": [
+              "A: Item",
+              "B: Line Total",
+              "C: Tax Cell (F1 = 0.18)",
+              "D: Tax Amount"
+            ],
+            "rows": [
+              [
+                "Monitor",
+                "400",
+                "Fixed: $F$1",
+                "=B2*$F$1 ➔ 72.00"
+              ],
+              [
+                "Keyboard",
+                "200",
+                "Fixed: $F$1",
+                "=B3*$F$1 ➔ 36.00"
+              ],
+              [
+                "Mouse",
+                "200",
+                "Fixed: $F$1",
+                "=B4*$F$1 ➔ 36.00"
+              ]
+            ]
+          },
+          "formula": "=B2*$F$1",
+          "explanation": "The dollar signs ($F$1) prevent the row and column from changing when dragged down."
+        },
+        {
+          "level": "Advanced (Mixed 2D Matrix Referencing)",
+          "goal": "Build a 2D Price Sensitivity Matrix (Units in Row 1, Discount % in Col A)",
+          "table": {
+            "headers": [
+              "Discount / Units",
+              "B1: 100 Units",
+              "C1: 500 Units",
+              "D1: 1000 Units"
+            ],
+            "rows": [
+              [
+                "A2: 5% Discount",
+                "=$B$0*(1-$A2)*B$1",
+                "=$B$0*(1-$A2)*C$1",
+                "=$B$0*(1-$A2)*D$1"
+              ],
+              [
+                "A3: 10% Discount",
+                "=$B$0*(1-$A3)*B$1",
+                "=$B$0*(1-$A3)*C$1",
+                "=$B$0*(1-$A3)*D$1"
+              ]
+            ]
+          },
+          "formula": "=$B$0*(1-$A2)*B$1",
+          "explanation": "Locks column $A for discounts and locks row $1 for unit tiers, allowing one single formula to populate the entire 2D matrix."
+        }
+      ],
+      "errorDebugging": [
+        {
+          "code": "#VALUE!",
+          "cause": "Multiplying text strings (e.g. '$120' stored as text) with numbers.",
+          "fix": "Use VALUE() or Text-to-Columns to convert to true numbers."
+        },
+        {
+          "code": "Circular Reference Warning",
+          "cause": "Formula references its own destination cell (e.g. in cell A1 typing =SUM(A1:A10)).",
+          "fix": "Ensure the formula cell is excluded from the input range."
+        }
+      ],
+      "keyConcepts": [
+        {
+          "name": "Relative vs Absolute Referencing",
+          "en": "Relative (A1) shifts on drag; Absolute ($A$1) stays locked on row & col.",
+          "hi": "Relative formula drag karne par shift hota hai, Absolute reference ko lock karta hai."
+        },
+        {
+          "name": "Essential Analyst Keyboard Shortcuts",
+          "en": "F4 (Toggle Lock), Ctrl+Shift+L (Filter), Alt+H+O+I (Auto-width), Ctrl+1 (Format dialog).",
+          "hi": "F4 (Lock toggle), Ctrl+Shift+L (Filter), Alt+H+O+I (Auto column width)."
+        }
+      ],
+      "simulatorData": {
+        "title": "Absolute Referencing Tax Calculation",
+        "description": "Calculate Net Price for transactions using a fixed 18% Tax Rate located at Cell D1.",
+        "headers": [
+          "A: Item",
+          "B: Base Price ($)",
+          "C: Tax Rate",
+          "D: Tax Amount",
+          "E: Final Total"
+        ],
+        "rows": [
+          [
+            "Enterprise Cloud Server",
+            "1200",
+            "Fixed: $D$1 (18%)",
+            "",
+            ""
+          ],
+          [
+            "Analytics Database License",
+            "850",
+            "Fixed: $D$1 (18%)",
+            "",
+            ""
+          ],
+          [
+            "BI Visualization Tool",
+            "400",
+            "Fixed: $D$1 (18%)",
+            "",
+            ""
+          ],
+          [
+            "Data Warehouse Storage",
+            "1600",
+            "Fixed: $D$1 (18%)",
+            "",
+            ""
+          ]
+        ],
+        "targetCell": "D2",
+        "formula": "=B2*$D$1",
+        "steps": [
+          {
+            "step": 1,
+            "phase": "DATA INSPECTION (Input Data)",
+            "action": "Look at Raw Table",
+            "highlight": [
+              "B2:B5",
+              "D1"
+            ],
+            "narrative_en": "📌 CURRENT DATA: Base Price is in Column B (Cell B2 = $1200). The fixed global Tax Rate (18%) is placed at Cell D1.",
+            "narrative_hi": "📌 DATA CONTEXT: Humne Column B me Base Price ($1200) liya hai aur Cell D1 me hamara fixed 18% Tax Rate hai.",
+            "validation_en": "Goal: Compute Tax Amount in Column D without the formula drifting when dragged down.",
+            "validation_hi": "Goal: Column D me Tax nikalna hai taaki niche drag karne par D1 ka reference na hile."
+          },
+          {
+            "step": 2,
+            "phase": "FORMULA SELECTION & LOCKING",
+            "action": "Enter =B2*$D$1 in Cell D2",
+            "highlight": [
+              "B2",
+              "D1"
+            ],
+            "formulaText": "=B2*$D$1",
+            "narrative_en": "⚙️ FORMULA EXECUTION: Pressing F4 locks cell D1 with dollar signs ($D$1), making it Absolute.",
+            "narrative_hi": "⚙️ FORMULA EXECUTION: F4 dabane se D1 cell lock ho gaya ($D$1). B2 relative raha.",
+            "validation_en": "Calculation check: 1200 * 0.18 = $216.00.",
+            "validation_hi": "Validation check: 1200 * 0.18 = 216 Tax calculation bilkul sahi hai."
+          },
+          {
+            "step": 3,
+            "phase": "FLASH FILL & VALIDATION",
+            "action": "Drag down across D2:D5",
+            "range": "D2:D5",
+            "formulaText": "=B3*$D$1 (Evaluates $153)",
+            "narrative_en": "✅ RESULT & DRAG VALIDATION: Cell D3 becomes =B3*$D$1 (850*0.18 = 153). D1 stayed fixed at 18%!",
+            "narrative_hi": "✅ RESULT VALIDATION: Drag karne par D3 = B3*$D$1 ho gaya. Tax rate fixed raha aur saari rows sahi calculate ho gayi!"
+          }
+        ]
+      },
+      "ribbonMethod": {
+        "tab": "Home & View Tabs",
+        "clickPath": "Home Tab > Number Group > Custom Formatting Dialog (Ctrl + 1)",
+        "steps": [
+          "1. Select cell range with data.",
+          "2. Go to 'Home' Tab on Top Ribbon > Click small arrow at corner of 'Number' section.",
+          "3. Select 'Custom' and paste format code.",
+          "4. Go to 'View' Tab > Uncheck 'Gridlines' to give a clean dashboard look."
+        ],
+        "shortcuts": [
+          {
+            "key": "F4",
+            "desc": "Toggle Cell Lock ($A$1 ➔ A$1 ➔ $A1 ➔ A1)"
+          },
+          {
+            "key": "Ctrl + 1",
+            "desc": "Open Format Cells Dialog box"
+          },
+          {
+            "key": "Alt + H + O + I",
+            "desc": "Auto-fit all column widths instantly"
+          },
+          {
+            "key": "Ctrl + Space",
+            "desc": "Select entire active column"
+          },
+          {
+            "key": "Shift + Space",
+            "desc": "Select entire active row"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mod-2",
+      "number": "02",
+      "title": "Data Cleaning, Wrangling & Text Manipulation",
+      "category": "Data Cleaning",
+      "difficulty": "Intermediate",
+      "duration": "60 mins",
+      "badge": "ETL & Cleaning",
+      "description": {
+        "en": "Eliminate invisible ASCII whitespaces, split merged Full Names & IDs, normalize case with PROPER/UPPER, and implement automated Data Validation rules.",
+        "hi": "Invisible ASCII spaces hatana (TRIM/CLEAN), Full Names aur Region Codes ko TEXTSPLIT/MID se alag karna, aur strict Data Validation rules lagana."
+      },
+      "definition": {
+        "en": "Data Wrangling is the process of cleaning messy, corrupted, web-scraped, or exported text data into structured, standardized, and formula-ready tabular formats.",
+        "hi": "Data Cleaning/Wrangling ka matlab hai messy raw text data (jisme unwanted spaces, mixed case, merged columns, ya special characters hon) ko clean karke analysis ke liye ready karna.",
+        "whyItExists": {
+          "en": "Over 80% of real-world Data Analyst time is spent cleaning data. Lookups and Pivot Tables fail completely if text case is inconsistent or invisible spaces are present.",
+          "hi": "Real world me 80% time data cleaning me lagta hai. Agar text ke aage invisible space ho to VLOOKUP ya XLOOKUP fail ho jata hai aur galat reports ban sakti hain."
+        }
+      },
+      "visualFlow": {
+        "title": "Text Cleaning Transformation Engine",
+        "nodes": [
+          {
+            "label": "Raw Input: '  rahul  sharma | BLR-01 '",
+            "desc": "Messy spaces + lowercase + pipe symbol",
+            "color": "#f43f5e"
+          },
+          {
+            "arrow": "➔ 1. TRIM & CLEAN"
+          },
+          {
+            "label": "TRIM()",
+            "desc": "Strips leading/trailing/multiple spaces",
+            "color": "#fbbf24"
+          },
+          {
+            "arrow": "➔ 2. TEXTBEFORE / TEXTAFTER"
+          },
+          {
+            "label": "TEXTBEFORE(text, '|')",
+            "desc": "Splits string at delimiter into Name & City",
+            "color": "#38bdf8"
+          },
+          {
+            "arrow": "➔ 3. PROPER()"
+          },
+          {
+            "label": "Clean Output: 'Rahul Sharma'",
+            "desc": "Standard Title Case, zero extra spaces",
+            "color": "#10B981"
+          }
+        ]
+      },
+      "analystScenario": {
+        "datasetName": "Customer_Leads_Raw.csv (28,000 Rows)",
+        "scenario_en": "Marketing dumped lead registration forms where phone numbers contain leading hyphens, names have random leading/trailing non-breaking spaces (causing VLOOKUP failures), and state codes are in mixed case (ny, NY, N.y.).",
+        "scenario_hi": "Marketing team ne 28,000 customer leads di hain jisme full names ke sath city code pipe symbol ke sath chipka hua hai ('  priya  verma | DEL-09 '). Invisible spaces ki wajah se database match nahi ho raha.",
+        "analystMindset_en": "1. Run TRIM(CLEAN(A2)) to strip ASCII 32 and non-printable characters.\n2. Handle non-breaking web spaces using SUBSTITUTE(A2, CHAR(160), \" \").\n3. Use TEXTBEFORE and TEXTAFTER or TEXTSPLIT to isolate clean tokens without breaking downstream formulas.",
+        "analystMindset_hi": "1. Pehle TRIM aur CLEAN lagao taaki regular aur non-printable spaces hat jayein.\n2. Agar web-scraped data ho to CHAR(160) ko SUBSTITUTE se normal space me convert karo.\n3. TEXTBEFORE aur TEXTAFTER se Name aur City Code ko clean columns me alag karo."
+      },
+      "progressiveExamples": [
+        {
+          "level": "Beginner (TRIM & PROPER)",
+          "goal": "Clean messy user input names with bad spacing and case",
+          "table": {
+            "headers": [
+              "A: Raw Name",
+              "B: Formula",
+              "C: Clean Output"
+            ],
+            "rows": [
+              [
+                "  amit   KUMAR  ",
+                "=PROPER(TRIM(A2))",
+                "Amit Kumar"
+              ],
+              [
+                "sneha   gupta",
+                "=PROPER(TRIM(A3))",
+                "Sneha Gupta"
+              ],
+              [
+                "VIKRAM   SINGH ",
+                "=PROPER(TRIM(A4))",
+                "Vikram Singh"
+              ]
+            ]
+          },
+          "formula": "=PROPER(TRIM(A2))",
+          "explanation": "TRIM removes irregular inner/outer spaces, PROPER capitalizes the first letter of each word."
+        },
+        {
+          "level": "Intermediate (Text Splitting & Extraction)",
+          "goal": "Extract Employee ID and Department from token string 'EMP-9821::Analytics'",
+          "table": {
+            "headers": [
+              "A: Token String",
+              "B: Extracted ID",
+              "C: Extracted Department"
+            ],
+            "rows": [
+              [
+                "EMP-9821::Analytics",
+                "=TEXTBEFORE(A2, \"::\") ➔ EMP-9821",
+                "=TEXTAFTER(A2, \"::\") ➔ Analytics"
+              ],
+              [
+                "EMP-4102::Finance",
+                "=TEXTBEFORE(A3, \"::\") ➔ EMP-4102",
+                "=TEXTAFTER(A3, \"::\") ➔ Finance"
+              ]
+            ]
+          },
+          "formula": "=TEXTBEFORE(A2, \"::\")",
+          "explanation": "TEXTBEFORE isolates text before the delimiter, TEXTAFTER captures the remaining token."
+        },
+        {
+          "level": "Advanced (Web Non-Breaking Space Removal)",
+          "goal": "Fix false #N/A lookup failures caused by web-scraped ASCII 160",
+          "table": {
+            "headers": [
+              "A: Raw Web String",
+              "B: Standard Formula",
+              "C: Result"
+            ],
+            "rows": [
+              [
+                "SKU-001[CHAR 160]",
+                "=TRIM(SUBSTITUTE(A2, CHAR(160), \" \"))",
+                "Clean SKU-001 ready for exact match"
+              ]
+            ]
+          },
+          "formula": "=TRIM(SUBSTITUTE(A2, CHAR(160), \" \"))",
+          "explanation": "Standard TRIM only removes ASCII 32. Web data uses ASCII 160 which must be substituted first."
+        }
+      ],
+      "errorDebugging": [
+        {
+          "code": "#N/A on Lookups after Cleaning",
+          "cause": "Data had non-breaking spaces (CHAR 160) which standard TRIM does not touch.",
+          "fix": "Wrap cell in SUBSTITUTE(A2, CHAR(160), \" \") before TRIM."
+        }
+      ],
+      "keyConcepts": [
+        {
+          "name": "TRIM vs CLEAN",
+          "en": "TRIM removes ASCII 32 extra spaces. CLEAN removes ASCII 0-31 non-printable line breaks.",
+          "hi": "TRIM extra spaces hatata hai, CLEAN hidden line breaks aur formatting codes hatata hai."
+        },
+        {
+          "name": "Modern TEXTSPLIT / TEXTJOIN",
+          "en": "TEXTSPLIT splits across columns/rows. TEXTJOIN concatenates arrays with custom delimiters.",
+          "hi": "TEXTSPLIT cells ko split karta hai, TEXTJOIN arrays ko combine karta hai."
+        }
+      ],
+      "simulatorData": {
+        "title": "Cleaning Messy Customer Records",
+        "description": "Transform messy raw string '  rahul  sharma  | MUM-01 ' into clean Title Case and City.",
+        "headers": [
+          "A: Raw Customer String",
+          "B: Cleaned Name",
+          "C: Cleaned City"
+        ],
+        "rows": [
+          [
+            "  rahul  sharma | MUM-01",
+            "",
+            ""
+          ],
+          [
+            " priya  VERMA | DEL-04",
+            "",
+            ""
+          ],
+          [
+            " amit  kumar | BLR-09",
+            "",
+            ""
+          ]
+        ],
+        "targetCell": "B2",
+        "formula": "=PROPER(TRIM(TEXTBEFORE(A2, \"|\")))",
+        "steps": [
+          {
+            "step": 1,
+            "action": "Analyze String",
+            "highlight": [
+              "A2"
+            ],
+            "explanation": "String contains leading spaces, lowercase, and pipe separator '|'."
+          },
+          {
+            "step": 2,
+            "action": "Apply Formula",
+            "formulaText": "=PROPER(TRIM(TEXTBEFORE(A2, \"|\")))",
+            "explanation": "Extracts text before '|', strips multiple spaces via TRIM, capitalizes to 'Rahul Sharma'."
+          },
+          {
+            "step": 3,
+            "action": "Extract City Code",
+            "formulaText": "=TRIM(TEXTAFTER(A2, \"|\"))",
+            "explanation": "Extracts 'MUM-01' into Column C cleanly."
+          }
+        ]
+      },
+      "ribbonMethod": {
+        "tab": "Data Tab",
+        "clickPath": "Data Tab > Data Tools Group > Text to Columns / Flash Fill (Ctrl + E)",
+        "steps": [
+          "1. Click 'Data' Tab on Top Ribbon.",
+          "2. In 'Data Tools' group, click 'Flash Fill' (or press Ctrl + E) to auto-extract patterns.",
+          "3. To split delimited strings, click 'Text to Columns' > Choose Delimited > Select Pipe '|' or Comma.",
+          "4. In 'Data Tools' click 'Data Validation' to add dropdown selection lists."
+        ],
+        "shortcuts": [
+          {
+            "key": "Ctrl + E",
+            "desc": "Flash Fill - Auto-detects pattern and splits text"
+          },
+          {
+            "key": "Alt + A + E",
+            "desc": "Open Text-to-Columns Wizard"
+          },
+          {
+            "key": "Alt + A + V + V",
+            "desc": "Open Data Validation Dialog box"
+          },
+          {
+            "key": "Ctrl + H",
+            "desc": "Find & Replace characters/spaces"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mod-3",
+      "number": "03",
+      "title": "Logical Formulas & Conditional Aggregations",
+      "category": "Formulas",
+      "difficulty": "Intermediate",
+      "duration": "75 mins",
+      "badge": "Decision Logic",
+      "description": {
+        "en": "Build multi-tier corporate decision logic using nested IFS, SWITCH, AND/OR, and aggregate metrics dynamically with SUMIFS, COUNTIFS, and AVERAGEIFS.",
+        "hi": "Nested IFS, SWITCH, AND/OR se multi-tier corporate business logic banayein, aur SUMIFS, COUNTIFS se multi-criteria KPI calculations karein."
+      },
+      "definition": {
+        "en": "Logical formulas evaluate boolean conditions (TRUE or FALSE) to execute branched corporate decisions. Conditional aggregations (SUMIFS, COUNTIFS) calculate sums and counts only for records matching specific business criteria.",
+        "hi": "Logical formulas conditions (TRUE/FALSE) ko check karke decision leti hain (jaise discount dena hai ya nahi). Conditional aggregations (SUMIFS, COUNTIFS) sirf unhi rows ka sum/count karti hain jo hamari criteria ko match karein.",
+        "whyItExists": {
+          "en": "Corporate metrics require segmentation (e.g. Sales for Enterprise segment in North region). Instead of manual filtering, SUMIFS calculates live dynamic metrics instantly.",
+          "hi": "Business me hamesha segmented numbers chahiye hote hain jaise 'North region ke Enterprise deals ka total'. SUMIFS ye kaam bina kisi manual filter ke dynamically karta hai."
+        }
+      },
+      "visualFlow": {
+        "title": "SUMIFS Multi-Condition Architecture",
+        "nodes": [
+          {
+            "label": "SUMIFS Syntax",
+            "desc": "=SUMIFS(sum_range, criteria_range1, criteria1, criteria_range2, criteria2)",
+            "color": "#38bdf8"
+          },
+          {
+            "arrow": "➔ Step 1: Target"
+          },
+          {
+            "label": "sum_range (Revenue E2:E100)",
+            "desc": "The numeric column to sum",
+            "color": "#10B981"
+          },
+          {
+            "arrow": "➔ Step 2: Filters"
+          },
+          {
+            "label": "Region = 'North' AND Segment = 'Enterprise'",
+            "desc": "Both criteria evaluated row-by-row",
+            "color": "#fbbf24"
+          },
+          {
+            "arrow": "➔ Output"
+          },
+          {
+            "label": "$185,000 Total",
+            "desc": "Sum of matching records only",
+            "color": "#a855f7"
+          }
+        ]
+      },
+      "analystScenario": {
+        "datasetName": "Sales_Performance_H2.csv (60,000 Rows)",
+        "scenario_en": "Your Sales Director needs tier-based commission calculations: Reps with Revenue > $100,000 AND CSAT > 90 get 12% bonus; Revenue > $60,000 OR Deals Closed > 20 get 7%; all others get 3%. Also calculate West region Enterprise revenue.",
+        "scenario_hi": "Sales Director ko team ke commission calculate karne hain: Agar Sales > 100k aur CSAT > 90 hai to 12% bonus, agar Sales > 60k ya Closed Deals > 20 hain to 7%, baaki sabko 3%. Sath hi specific region ka total revenue SUMIFS se nikalna hai.",
+        "analystMindset_en": "1. Replace convoluted 5-level nested IFs with `IFS()` or `SWITCH(TRUE(), ...)`.\n2. Ensure criteria ranges in SUMIFS match the sum_range dimensions exactly to avoid #VALUE! errors.\n3. Wrap comparisons in double quotes when using dynamic cell references: `\">=\" & F1`.",
+        "analystMindset_hi": "1. Purane nested IF ki jagah `IFS()` use karein taaki formula clean aur maintainable rahe.\n2. SUMIFS me hamesha saari ranges ka row count exact same hona chahiye.\n3. Comparison operators me cell reference lagate waqt `\">=\" & F1` likhein."
+      },
+      "progressiveExamples": [
+        {
+          "level": "Beginner (Simple IF & SUMIF)",
+          "goal": "Check target achievement and sum revenue for High Priority status",
+          "table": {
+            "headers": [
+              "A: Rep",
+              "B: Sales",
+              "C: Target (100k)",
+              "D: Status"
+            ],
+            "rows": [
+              [
+                "Aarav",
+                "120000",
+                "100000",
+                "=IF(B2>=C2, \"Achieved\", \"Pending\") ➔ Achieved"
+              ],
+              [
+                "Priya",
+                "85000",
+                "100000",
+                "=IF(B3>=C3, \"Achieved\", \"Pending\") ➔ Pending"
+              ]
+            ]
+          },
+          "formula": "=IF(B2>=C2, \"Achieved\", \"Pending\")",
+          "explanation": "Evaluates condition B2>=C2; returns 'Achieved' if true, 'Pending' if false."
+        },
+        {
+          "level": "Intermediate (Multi-Condition SUMIFS)",
+          "goal": "Sum Revenue for 'North' region where Deal Size is > 50,000",
+          "table": {
+            "headers": [
+              "Region Col A",
+              "Revenue Col B",
+              "Deal Size Col C",
+              "Summary Formula"
+            ],
+            "rows": [
+              [
+                "North",
+                "75000",
+                "75000",
+                ""
+              ],
+              [
+                "South",
+                "32000",
+                "32000",
+                "=SUMIFS(B2:B5, A2:A5, \"North\", C2:C5, \">50000\") ➔ 185,000"
+              ],
+              [
+                "North",
+                "110000",
+                "110000",
+                ""
+              ]
+            ]
+          },
+          "formula": "=SUMIFS(B2:B5, A2:A5, \"North\", C2:C5, \">50000\")",
+          "explanation": "Only sums rows where Column A is 'North' and Column C exceeds 50000."
+        },
+        {
+          "level": "Advanced (Tiered Commission with IFS + Boolean)",
+          "goal": "Assign commission tiers based on multi-variable criteria",
+          "table": {
+            "headers": [
+              "Revenue (B2)",
+              "CSAT (C2)",
+              "Deals (D2)",
+              "Calculated Tier"
+            ],
+            "rows": [
+              [
+                "115000",
+                "92",
+                "15",
+                "=IFS(AND(B2>=100000, C2>=90), \"Tier 1 (12%)\", OR(B2>=60000, D2>=20), \"Tier 2 (7%)\", TRUE, \"Tier 3 (3%)\") ➔ Tier 1"
+              ]
+            ]
+          },
+          "formula": "=IFS(AND(B2>=100000, C2>=90), \"Tier 1 (12%)\", OR(B2>=60000, D2>=20), \"Tier 2 (7%)\", TRUE, \"Tier 3 (3%)\")",
+          "explanation": "Evaluates conditions sequentially from top to bottom; 'TRUE' serves as default catch-all fallback."
+        }
+      ],
+      "errorDebugging": [
+        {
+          "code": "#VALUE! in SUMIFS",
+          "cause": "Criteria range size does not match sum range size (e.g. A2:A100 vs B2:B90).",
+          "fix": "Ensure all range rows have identical start and end rows (e.g. 2 to 100)."
+        }
+      ],
+      "keyConcepts": [
+        {
+          "name": "SUMIFS vs SUMIF",
+          "en": "SUMIFS takes sum_range first and allows up to 127 criteria pairs.",
+          "hi": "SUMIFS me sum_range pehle aati hai aur unlimited conditions support hoti hain."
+        },
+        {
+          "name": "IFS vs Nested IF",
+          "en": "IFS eliminates closing parenthesis hell and reads linearly.",
+          "hi": "IFS se multiple nested IF lagane ki jhanjhat khatam ho jaati hai."
+        }
+      ],
+      "simulatorData": {
+        "title": "Multi-Criteria Regional Commission Engine",
+        "description": "Compute multi-condition Revenue total for 'Enterprise' segment in 'North' Region with deals > 50k.",
+        "headers": [
+          "A: Region",
+          "B: Segment",
+          "C: Deal Value ($)",
+          "D: Commission Tier"
+        ],
+        "rows": [
+          [
+            "North",
+            "Enterprise",
+            "75000",
+            ""
+          ],
+          [
+            "South",
+            "Retail",
+            "32000",
+            ""
+          ],
+          [
+            "North",
+            "Enterprise",
+            "110000",
+            ""
+          ],
+          [
+            "North",
+            "SMB",
+            "45000",
+            ""
+          ]
+        ],
+        "targetCell": "D2",
+        "formula": "=IFS(C2>=100000, \"Tier 1 (12%)\", C2>=50000, \"Tier 2 (7%)\", TRUE, \"Tier 3 (3%)\")",
+        "steps": [
+          {
+            "step": 1,
+            "action": "Inspect Condition",
+            "highlight": [
+              "C2"
+            ],
+            "explanation": "Checking Deal Value 75000 against thresholds 100k and 50k."
+          },
+          {
+            "step": 2,
+            "action": "Evaluate IFS",
+            "formulaText": "=IFS(C2>=100000, \"Tier 1 (12%)\", C2>=50000, \"Tier 2 (7%)\", TRUE, \"Tier 3 (3%)\")",
+            "explanation": "75000 is < 100000 but >= 50000 -> Evaluates to 'Tier 2 (7%)'."
+          },
+          {
+            "step": 3,
+            "action": "SUMIFS Regional KPI",
+            "formulaText": "=SUMIFS(C2:C5, A2:A5, \"North\", B2:B5, \"Enterprise\")",
+            "explanation": "Calculates North + Enterprise deals sum: 75000 + 110000 = $185,000."
+          }
+        ]
+      },
+      "ribbonMethod": {
+        "tab": "Formulas Tab & Home Tab",
+        "clickPath": "Formulas Tab > Function Library > Math & Trig / Logical > Insert SUMIFS",
+        "steps": [
+          "1. Click 'Formulas' Tab on Top Ribbon.",
+          "2. Click 'Logical' to insert IF / IFS dialog with visual argument boxes.",
+          "3. Click 'Math & Trig' > 'SUMIFS' to open the Function Arguments helper wizard.",
+          "4. On 'Home' Tab > Click 'Conditional Formatting' > 'Highlight Cells Rules' to color-code high revenues."
+        ],
+        "shortcuts": [
+          {
+            "key": "Alt + =",
+            "desc": "AutoSum - Instantly sums adjacent column or row"
+          },
+          {
+            "key": "Shift + F3",
+            "desc": "Open Function Wizard Dialog with parameter boxes"
+          },
+          {
+            "key": "Alt + H + L",
+            "desc": "Open Conditional Formatting Menu"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mod-4",
+      "number": "04",
+      "title": "Lookup Mastery: VLOOKUP, INDEX-MATCH & XLOOKUP",
+      "category": "Lookups",
+      "difficulty": "Advanced",
+      "duration": "90 mins",
+      "badge": "Lookup Specialist",
+      "description": {
+        "en": "Master bidirectional searches with XLOOKUP, 2-way matrix lookups with INDEX-MATCH, approximate range matching for tax brackets, and eliminating #N/A errors with IFERROR.",
+        "hi": "XLOOKUP se left/right search, INDEX-MATCH se 2-Way matrix lookups, slab-based tax matching, aur #N/A error handling master karein."
+      },
+      "definition": {
+        "en": "Lookup functions search for a specific identifier (e.g. SKU Code, Employee ID) in one table and retrieve corresponding related attributes (e.g. Price, Department, Supplier) from another table.",
+        "hi": "Lookup functions kisi table me ek key identifier (jaise SKU Code ya Employee ID) ko dhoond kar dusre related columns (jaise Price ya Department) se matching value nikalte hain.",
+        "whyItExists": {
+          "en": "Relational databases store data across separate tables to prevent redundancy. Lookups connect transactional data with master catalogs seamlessly.",
+          "hi": "Enterprise data me Orders alag sheet me hote hain aur Product Catalog alag sheet me. Lookup dono sheets ko key column ke basis par dynamically jod deta hai."
+        }
+      },
+      "visualFlow": {
+        "title": "XLOOKUP Bidirectional Vector Architecture",
+        "nodes": [
+          {
+            "label": "lookup_value (D2: SKU-99)",
+            "desc": "What you are searching for",
+            "color": "#38bdf8"
+          },
+          {
+            "arrow": "➔ Searches In"
+          },
+          {
+            "label": "lookup_array (B2:B100)",
+            "desc": "Column where SKU exists",
+            "color": "#fbbf24"
+          },
+          {
+            "arrow": "➔ Finds Row Index (Row 5) ➔"
+          },
+          {
+            "label": "return_array (A2:A100)",
+            "desc": "Can be to the LEFT or RIGHT!",
+            "color": "#10B981"
+          },
+          {
+            "arrow": "➔ Fallback if missing"
+          },
+          {
+            "label": "\"Invalid SKU\"",
+            "desc": "Built-in error handling without IFERROR",
+            "color": "#a855f7"
+          }
+        ]
+      },
+      "analystScenario": {
+        "datasetName": "Master_Product_Inventory.xlsx & Daily_Orders.csv",
+        "scenario_en": "You have an order sheet with SKU_ID in column E, but the product unit cost is in Column B (to the left of SKU) in the master catalog. VLOOKUP fails completely because lookup values must reside in the first column.",
+        "scenario_hi": "Aapke paas orders sheet hai jisme SKU ID Column E me hai, jabki Master catalog me Cost Price SKU ke Left side (Column B) me hai. VLOOKUP yahan fail ho jata hai kyunki wo left search nahi kar sakta. XLOOKUP ya INDEX-MATCH se ise solve karein.",
+        "analystMindset_en": "1. Use XLOOKUP(lookup_val, lookup_vector, return_vector, [if_not_found]) for modern left-side lookups.\n2. For backward compatibility with legacy Excel 2016 workbooks, implement INDEX(ReturnCol, MATCH(LookupVal, LookupCol, 0)).\n3. For Matrix 2-Way Lookups, combine INDEX with two MATCH functions (Row Match + Column Match).",
+        "analystMindset_hi": "1. XLOOKUP se direct Left-side lookup karein aur 4th argument me 'Not Found' fallback de dein.\n2. Agar purane Excel version me share karna hai to `INDEX-MATCH` lagayein.\n3. Matrix 2-Way Lookup ke liye `INDEX(Table, MATCH(Row), MATCH(Col))` use karein."
+      },
+      "progressiveExamples": [
+        {
+          "level": "Beginner (Exact Match XLOOKUP)",
+          "goal": "Fetch Product Name from Left Column using SKU Code",
+          "table": {
+            "headers": [
+              "A: Product Name",
+              "B: SKU Code",
+              "C: Target SKU",
+              "D: Result"
+            ],
+            "rows": [
+              [
+                "Gaming Laptop",
+                "SKU-101",
+                "SKU-102",
+                "=XLOOKUP(C2, B2:B4, A2:A4, \"Not Found\") ➔ Mechanical Keyboard"
+              ],
+              [
+                "Mechanical Keyboard",
+                "SKU-102",
+                "-",
+                "-"
+              ],
+              [
+                "Wireless Mouse",
+                "SKU-103",
+                "-",
+                "-"
+              ]
+            ]
+          },
+          "formula": "=XLOOKUP(C2, B2:B4, A2:A4, \"Not Found\")",
+          "explanation": "Searches C2 inside B2:B4 and returns matching item from A2:A4 on the left."
+        },
+        {
+          "level": "Intermediate (2-Way Matrix INDEX-MATCH)",
+          "goal": "Find Sales for a specific Month (Row) and Product (Column)",
+          "table": {
+            "headers": [
+              "Month (Col A)",
+              "B: Laptops",
+              "C: Phones",
+              "D: Tablets"
+            ],
+            "rows": [
+              [
+                "Jan",
+                "120000",
+                "85000",
+                "45000"
+              ],
+              [
+                "Feb",
+                "140000",
+                "92000",
+                "51000"
+              ]
+            ]
+          },
+          "formula": "=INDEX(B2:D3, MATCH(\"Feb\", A2:A3, 0), MATCH(\"Phones\", B1:D1, 0))",
+          "explanation": "First MATCH finds Row 2 ('Feb'), second MATCH finds Column 2 ('Phones') -> retrieves $92,000."
+        },
+        {
+          "level": "Advanced (Approximate Match for Tiered Tax/Discount Slabs)",
+          "goal": "Determine Tax Rate based on Income Bracket without writing 10 nested IFs",
+          "table": {
+            "headers": [
+              "A: Min Income",
+              "B: Tax Rate",
+              "C: Target Income",
+              "D: Applicable Tax"
+            ],
+            "rows": [
+              [
+                "0",
+                "5%",
+                "$75,000",
+                "=XLOOKUP(C2, A2:A4, B2:B4, , -1) ➔ 15%"
+              ],
+              [
+                "50000",
+                "15%",
+                "-",
+                "-"
+              ],
+              [
+                "100000",
+                "25%",
+                "-",
+                "-"
+              ]
+            ]
+          },
+          "formula": "=XLOOKUP(C2, A2:A4, B2:B4, , -1)",
+          "explanation": "match_mode = -1 finds exact match or next smaller item, perfect for slab pricing."
+        }
+      ],
+      "errorDebugging": [
+        {
+          "code": "#N/A Error",
+          "cause": "Lookup key does not exist in the lookup array, or there are invisible trailing spaces.",
+          "fix": "Use TRIM() on keys and provide the 4th argument in XLOOKUP: \"Not Found\"."
+        },
+        {
+          "code": "#REF! Error",
+          "cause": "In VLOOKUP, column index number exceeds total columns in table array.",
+          "fix": "Switch to XLOOKUP or INDEX-MATCH which don't rely on fragile numeric column indices."
+        }
+      ],
+      "keyConcepts": [
+        {
+          "name": "XLOOKUP vs VLOOKUP",
+          "en": "XLOOKUP defaults to exact match, searches left, and survives column insertions.",
+          "hi": "XLOOKUP left search karta hai, exact match by default hota hai, aur column add hone par tootta nahi."
+        },
+        {
+          "name": "INDEX-MATCH Speed",
+          "en": "Processes only referenced vectors rather than caching entire multi-column matrices.",
+          "hi": "INDEX-MATCH VLOOKUP se 10x fast hota hai kyunki wo sirf targeted columns read karta hai."
+        }
+      ],
+      "simulatorData": {
+        "title": "Left-Lookup & Fallback with XLOOKUP",
+        "description": "Fetch Supplier Name (Col A) using Product SKU (Col B) with 'Discontinued' fallback.",
+        "headers": [
+          "A: Supplier Name",
+          "B: SKU Code",
+          "C: Unit Price",
+          "D: Search Input",
+          "E: Result"
+        ],
+        "rows": [
+          [
+            "Apex Logistics",
+            "SKU-9901",
+            "$45.00",
+            "SKU-9902",
+            ""
+          ],
+          [
+            "Zenith Global",
+            "SKU-9902",
+            "$120.00",
+            "SKU-7777",
+            ""
+          ],
+          [
+            "Vertex Supplies",
+            "SKU-9903",
+            "$85.00",
+            "",
+            ""
+          ]
+        ],
+        "targetCell": "E2",
+        "formula": "=XLOOKUP(D2, B2:B4, A2:A4, \"Discontinued SKU\")",
+        "steps": [
+          {
+            "step": 1,
+            "action": "Select Lookup Cell",
+            "highlight": [
+              "D2",
+              "B2:B4"
+            ],
+            "explanation": "Looking for SKU-9902 inside Lookup Array B2:B4."
+          },
+          {
+            "step": 2,
+            "action": "Map Return Array",
+            "highlight": [
+              "A2:A4"
+            ],
+            "explanation": "Targeting Supplier column A2:A4 to the LEFT of SKU column."
+          },
+          {
+            "step": 3,
+            "action": "Execute XLOOKUP",
+            "formulaText": "=XLOOKUP(D2, B2:B4, A2:A4, \"Discontinued SKU\")",
+            "explanation": "Found match at row 2 -> returns 'Zenith Global'. For non-existent SKU-7777 -> safely returns 'Discontinued SKU'."
+          }
+        ]
+      },
+      "ribbonMethod": {
+        "tab": "Formulas Tab",
+        "clickPath": "Formulas Tab > Function Library > Lookup & Reference > XLOOKUP",
+        "steps": [
+          "1. Click 'Formulas' Tab on Top Ribbon.",
+          "2. In 'Function Library', click 'Lookup & Reference'.",
+          "3. Select 'XLOOKUP' to open visual argument boxes for Lookup_Value, Lookup_Array, and Return_Array.",
+          "4. Fill in the boxes with mouse drag-selection without typing commas manually."
+        ],
+        "shortcuts": [
+          {
+            "key": "Shift + F3",
+            "desc": "Open Lookup Function Wizard"
+          },
+          {
+            "key": "Ctrl + Shift + Down",
+            "desc": "Select entire lookup column down to last row"
+          },
+          {
+            "key": "F2",
+            "desc": "Enter Edit Mode inside active lookup cell"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mod-5",
+      "number": "05",
+      "title": "Pivot Tables, Slicers & Calculated Fields",
+      "category": "Data Summarization",
+      "difficulty": "Advanced",
+      "duration": "80 mins",
+      "badge": "Analytics Pro",
+      "description": {
+        "en": "Transform raw transactional tables into dynamic multidimensional executive summaries using Pivot Caches, Calculated Fields, Grouping, Timeline Slicers, and % of Total metrics.",
+        "hi": "Raw transactional tables ko Pivot Tables, Slicers, Calculated Fields, Grouping aur % of Column Total calculations se interactive summaries me convert karein."
+      },
+      "definition": {
+        "en": "A Pivot Table is an interactive multidimensional aggregation engine that categorizes, sums, averages, and slices large raw datasets without writing individual formulas.",
+        "hi": "Pivot Table ek aisa powerful tool hai jo hazaron rows ke transactional data ko 2 clicks me Region, Product ya Date ke hisab se summarize, sum, count aur group kar deta hai bina koi formula likhe.",
+        "whyItExists": {
+          "en": "Writing 50 individual SUMIFS formulas for complex cross-tabulations is slow and prone to human error. Pivot Tables recalculate complex matrices in under 1 second.",
+          "hi": "Agar 50 alag categories ke liye SUMIFS lagana pade to ghanton lag jayenge. Pivot Table instant cross-tabulated reports generate karta hai."
+        }
+      },
+      "visualFlow": {
+        "title": "Pivot Table 4-Quadrant Architecture",
+        "nodes": [
+          {
+            "label": "Filters Quadrant",
+            "desc": "Top-level page slicing (e.g. Year = 2025)",
+            "color": "#38bdf8"
+          },
+          {
+            "label": "Columns Quadrant",
+            "desc": "Horizontal dimension headers (e.g. Product Category)",
+            "color": "#fbbf24"
+          },
+          {
+            "label": "Rows Quadrant",
+            "desc": "Vertical dimension headers (e.g. Sales Region)",
+            "color": "#a855f7"
+          },
+          {
+            "label": "Values Quadrant",
+            "desc": "Numeric aggregation metrics: Sum(Sales), Margin %",
+            "color": "#10B981"
+          }
+        ]
+      },
+      "analystScenario": {
+        "datasetName": "Global_Superstore_2025.csv (100,000 Rows)",
+        "scenario_en": "Executive leadership wants an instant breakdown of Gross Margin % and Year-over-Year sales growth segmented by Region and Product Sub-Category.",
+        "scenario_hi": "Leadership ko 100k rows ke data se Region-wise aur Category-wise Profit Margin % aur YoY Growth summary chahiye. Iske liye Table structure, Calculated Fields aur Slicers ka use karein.",
+        "analystMindset_en": "1. Always convert source data to an Official Table (`Ctrl + T`) so the Pivot Cache expands automatically upon refreshing.\n2. Create a Calculated Field `=Profit / Revenue` rather than averaging raw percentages to ensure mathematically weighted margins.\n3. Connect multiple Pivot Tables to unified Slicers using Report Connections.",
+        "analystMindset_hi": "1. Source data ko hamesha `Ctrl + T` Table banayein taaki naya data aate hi 'Refresh' karne par Pivot automatic update ho jaye.\n2. Calculated Field (`=Profit / Revenue`) add karein taaki weighted margin accurate calculate ho.\n3. Report Connections se 1 Slicer ko multiple Pivot Tables ke sath link karein."
+      },
+      "progressiveExamples": [
+        {
+          "level": "Beginner (2-Way Cross Tabulation)",
+          "goal": "Summarize Total Revenue by Region (Rows) and Department (Columns)",
+          "table": {
+            "headers": [
+              "Region",
+              "Furniture",
+              "Technology",
+              "Total"
+            ],
+            "rows": [
+              [
+                "North",
+                "$120,000",
+                "$250,000",
+                "$370,000"
+              ],
+              [
+                "South",
+                "$90,000",
+                "$180,000",
+                "$270,000"
+              ]
+            ]
+          },
+          "formula": "Pivot Area: Rows=Region, Cols=Department, Values=Sum(Revenue)",
+          "explanation": "Drag fields into corresponding quadrants in the Pivot Field List."
+        },
+        {
+          "level": "Intermediate (Calculated Fields)",
+          "goal": "Calculate Weighted Gross Profit Margin %",
+          "table": {
+            "headers": [
+              "Region",
+              "Sum of Sales",
+              "Sum of Profit",
+              "Calculated Gross Margin %"
+            ],
+            "rows": [
+              [
+                "North",
+                "$500,000",
+                "$150,000",
+                "30.0%"
+              ],
+              [
+                "South",
+                "$300,000",
+                "$60,000",
+                "20.0%"
+              ]
+            ]
+          },
+          "formula": "Pivot Table Analyze > Fields, Items & Sets > Calculated Field: =Profit / Sales",
+          "explanation": "Calculates Sum(Profit) divided by Sum(Sales) accurately."
+        },
+        {
+          "level": "Advanced (Show Values As % of Column / Parent)",
+          "goal": "Calculate regional revenue contribution as % of National Total",
+          "table": {
+            "headers": [
+              "Region",
+              "Sales ($)",
+              "% of Grand Total"
+            ],
+            "rows": [
+              [
+                "North",
+                "$500,000",
+                "62.5%"
+              ],
+              [
+                "South",
+                "$300,000",
+                "37.5%"
+              ]
+            ]
+          },
+          "formula": "Value Field Settings > Show Values As > % of Grand Total",
+          "explanation": "Generates instant percentage distribution without helper formula columns."
+        }
+      ],
+      "errorDebugging": [
+        {
+          "code": "Pivot Data Missing after Refresh",
+          "cause": "Source was a standard static range instead of an Official Table (Ctrl+T).",
+          "fix": "Convert range to Table (Ctrl+T) and set TableName as Pivot Source."
+        }
+      ],
+      "keyConcepts": [
+        {
+          "name": "Calculated Field vs Calculated Item",
+          "en": "Calculated Field operates across entire columns; Calculated Item operates on individual row items.",
+          "hi": "Calculated Field pure column metrics par chalta hai, Calculated Item specific row labels par."
+        }
+      ],
+      "simulatorData": {
+        "title": "Pivot Table Multi-Dimensional Slice",
+        "description": "Pivot Sales data by Region (Rows), Category (Columns), and calculate Sum of Revenue with Margin %.",
+        "headers": [
+          "Region",
+          "Furniture ($)",
+          "Technology ($)",
+          "Office Supplies ($)",
+          "Total Revenue ($)"
+        ],
+        "rows": [
+          [
+            "North America",
+            "$240,000",
+            "$510,000",
+            "$180,000",
+            "$930,000"
+          ],
+          [
+            "Europe",
+            "$190,000",
+            "$420,000",
+            "$140,000",
+            "$750,000"
+          ],
+          [
+            "Asia Pacific",
+            "$310,000",
+            "$680,000",
+            "$210,000",
+            "$1,200,000"
+          ],
+          [
+            "Grand Total",
+            "$740,000",
+            "$1,610,000",
+            "$530,000",
+            "$2,880,000"
+          ]
+        ],
+        "targetCell": "PivotGrid",
+        "formula": "=PIVOT(Rows: Region, Cols: Category, Values: Sum(Revenue))",
+        "steps": [
+          {
+            "step": 1,
+            "action": "Drag Dimensions",
+            "highlight": [
+              "North America",
+              "Furniture ($)"
+            ],
+            "explanation": "Placed 'Region' into Rows area and 'Category' into Columns area in Pivot Field List."
+          },
+          {
+            "step": 2,
+            "action": "Aggregate Measure",
+            "highlight": [
+              "Grand Total"
+            ],
+            "explanation": "Applied Sum aggregation over Transaction Amount, generating instant cross-tab totals."
+          },
+          {
+            "step": 3,
+            "action": "Attach Slicer",
+            "explanation": "Connected interactive Year (2024 / 2025) Slicer allowing one-click dashboard filtering."
+          }
+        ]
+      },
+      "ribbonMethod": {
+        "tab": "Insert Tab & PivotTable Analyze Tab",
+        "clickPath": "Insert Tab > Tables Group > PivotTable (or Ctrl + T first)",
+        "steps": [
+          "1. Select any cell inside your dataset > Press Ctrl + T to create an Official Table.",
+          "2. Go to 'Insert' Tab on Top Ribbon > Click 'PivotTable' > Choose New Worksheet.",
+          "3. In the Right Sidebar Field List, drag 'Region' to Rows, 'Category' to Columns, and 'Revenue' to Values.",
+          "4. Click 'PivotTable Analyze' Tab > Click 'Insert Slicer' to add visual clickable buttons."
+        ],
+        "shortcuts": [
+          {
+            "key": "Ctrl + T",
+            "desc": "Convert raw range into an Official Excel Table"
+          },
+          {
+            "key": "Alt + N + V",
+            "desc": "Insert Pivot Table shortcut"
+          },
+          {
+            "key": "Alt + F5",
+            "desc": "Refresh active Pivot Table data cache"
+          },
+          {
+            "key": "Ctrl + Alt + F5",
+            "desc": "Refresh All Pivot Tables in workbook"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mod-6",
+      "number": "06",
+      "title": "Modern Dynamic Array Formulas: FILTER, UNIQUE, SORT & LAMBDA",
+      "category": "Modern Formulas",
+      "difficulty": "Advanced",
+      "duration": "90 mins",
+      "badge": "Modern Excel 365",
+      "description": {
+        "en": "Harness the power of Excel's calculation engine with Spilling Arrays (`#SPILL!`), dynamic filtering without macros, LET formula optimization, and reusable LAMBDA functions.",
+        "hi": "Excel 365 ke Dynamic Spill Arrays, FILTER, UNIQUE, SORTBY, LET variables aur custom reusable LAMBDA functions seekhein."
+      },
+      "definition": {
+        "en": "Dynamic Array Formulas allow a single formula in one cell to output a multi-cell rectangular result array that automatically 'spills' over neighboring empty cells without requiring Ctrl+Shift+Enter.",
+        "hi": "Dynamic Array Formulas me aap sirf 1 cell me formula likhte hain aur result pure table range me automatically 'spill' ho jata hai. Isme FILTER, UNIQUE, SORT aur LET jaise high-speed functions shamil hain.",
+        "whyItExists": {
+          "en": "Previously, extracting filtered sub-tables required complex VBA macros or cumbersome helper formulas. Dynamic arrays update live whenever source data changes.",
+          "hi": "Pehle filtered data extract karne ke liye macros likhne padte the. Dynamic arrays live connect rehte hain aur data change hote hi sub-tables automatic update kar dete hain."
+        }
+      },
+      "visualFlow": {
+        "title": "Dynamic Array Spill Engine",
+        "nodes": [
+          {
+            "label": "Anchor Cell F2",
+            "desc": "Contains formula: =SORT(FILTER(data, condition))",
+            "color": "#38bdf8"
+          },
+          {
+            "arrow": "➔ Calculation Engine"
+          },
+          {
+            "label": "Spill Boundary (F2:H10)",
+            "desc": "Allocates dynamic memory block",
+            "color": "#10B981"
+          },
+          {
+            "arrow": "➔ Referenced as F2#"
+          },
+          {
+            "label": "Spill Operator (#)",
+            "desc": "Dynamically captures expanding range",
+            "color": "#a855f7"
+          }
+        ]
+      },
+      "analystScenario": {
+        "datasetName": "Live_ECommerce_Orders.xlsx (75,000 Rows)",
+        "scenario_en": "Your operations team needs a live automated sub-table of all 'Delayed' orders in the 'Electronics' department sorted by highest order value, updating automatically whenever new orders sync.",
+        "scenario_hi": "Operations team ko ek dynamic live sub-table chahiye jisme sirf 'Delayed' status wale 'Electronics' orders automatically sort hokar highest value ke hisab se dikhein bina koi macro run kiye.",
+        "analystMindset_en": "1. Use Boolean Multiplication `(Status=\"Delayed\") * (Dept=\"Electronics\")` for multi-condition filtering.\n2. Wrap the filter in `SORT(..., 3, -1)` to order descending by revenue.\n3. Prevent `#SPILL!` errors by ensuring the downstream cells are completely blank.",
+        "analystMindset_hi": "1. Multi-condition filter ke liye `*` (AND logic) use karein.\n2. Pure output ko `SORT()` me wrap karein taaki highest values upar aayein.\n3. `#SPILL!` error se bachne ke liye niche aur right side ke cells khali rakhein."
+      },
+      "progressiveExamples": [
+        {
+          "level": "Beginner (UNIQUE & SORT)",
+          "goal": "Extract an alphabetical deduplicated list of Client Names",
+          "table": {
+            "headers": [
+              "A: Raw Client List",
+              "B: Formula Cell (B2)",
+              "C: Spilled Output"
+            ],
+            "rows": [
+              [
+                "Google",
+                "=SORT(UNIQUE(A2:A6))",
+                "Amazon"
+              ],
+              [
+                "Microsoft",
+                "-",
+                "Apple"
+              ],
+              [
+                "Amazon",
+                "-",
+                "Google"
+              ],
+              [
+                "Apple",
+                "-",
+                "Microsoft"
+              ]
+            ]
+          },
+          "formula": "=SORT(UNIQUE(A2:A6))",
+          "explanation": "UNIQUE removes duplicates, SORT orders alphabetically from A to Z."
+        },
+        {
+          "level": "Intermediate (Multi-Condition FILTER)",
+          "goal": "Extract all active Enterprise accounts with revenue > $50,000",
+          "table": {
+            "headers": [
+              "A: Client",
+              "B: Tier",
+              "C: Revenue",
+              "D: Spilled Output"
+            ],
+            "rows": [
+              [
+                "Apex",
+                "Enterprise",
+                "$90,000",
+                "Apex | Enterprise | $90,000"
+              ],
+              [
+                "Zenith",
+                "SMB",
+                "$30,000",
+                "Delta | Enterprise | $120,000"
+              ],
+              [
+                "Delta",
+                "Enterprise",
+                "$120,000",
+                ""
+              ]
+            ]
+          },
+          "formula": "=FILTER(A2:C4, (B2:B4=\"Enterprise\") * (C2:C4>50000), \"No Matches\")",
+          "explanation": "Multiplication `*` acts as boolean AND. Output automatically populates matching rows."
+        },
+        {
+          "level": "Advanced (High-Performance LET Formula)",
+          "goal": "Calculate Net Profit Margin % and filter high-performers without repeating heavy math",
+          "table": {
+            "headers": [
+              "Source Range",
+              "LET Expression",
+              "Output"
+            ],
+            "rows": [
+              [
+                "A2:C1000",
+                "=LET(rev, B2:B100, cost, C2:C100, margin, (rev-cost)/rev, FILTER(A2:A100, margin>0.3))",
+                "High Margin Clients List"
+              ]
+            ]
+          },
+          "formula": "=LET(rev, B2:B100, cost, C2:C100, margin, (rev-cost)/rev, FILTER(A2:A100, margin>0.3))",
+          "explanation": "LET declares variables once, reducing calculation time from seconds to milliseconds."
+        }
+      ],
+      "errorDebugging": [
+        {
+          "code": "#SPILL! Error",
+          "cause": "A non-empty cell or merged cell is blocking the dynamic array from expanding.",
+          "fix": "Clear the cells highlighted by the dashed border box."
+        }
+      ],
+      "keyConcepts": [
+        {
+          "name": "The Hash Spill Operator (#)",
+          "en": "Writing =SUM(F2#) sums the entire dynamic array dynamically regardless of length.",
+          "hi": "=SUM(F2#) pure dynamic array ko automatically capture kar leta hai."
+        }
+      ],
+      "simulatorData": {
+        "title": "Dynamic Multi-Criteria Array Filter & Sort",
+        "description": "Extract Unique High-Value Clients with Revenue > 80k sorted descending.",
+        "headers": [
+          "A: Client Name",
+          "B: Region",
+          "C: Revenue ($)",
+          "D: Dynamic Spill Output (F2#)"
+        ],
+        "rows": [
+          [
+            "Alpha Corp",
+            "East",
+            "95000",
+            "Alpha Corp | 95000"
+          ],
+          [
+            "Beta LLC",
+            "West",
+            "45000",
+            "Delta Inc | 120000"
+          ],
+          [
+            "Gamma Tech",
+            "East",
+            "62000",
+            "Omega Systems | 88000"
+          ],
+          [
+            "Delta Inc",
+            "West",
+            "120000",
+            ""
+          ]
+        ],
+        "targetCell": "F2",
+        "formula": "=SORT(FILTER(A2:C5, C2:C5>80000), 3, -1)",
+        "steps": [
+          {
+            "step": 1,
+            "action": "Build FILTER Expression",
+            "highlight": [
+              "C2:C5"
+            ],
+            "explanation": "Filter condition isolates rows where Revenue > 80000 (Alpha Corp, Delta Inc)."
+          },
+          {
+            "step": 2,
+            "action": "Wrap in SORT",
+            "formulaText": "=SORT(FILTER(A2:C5, C2:C5>80000), 3, -1)",
+            "explanation": "Sorts by 3rd column (Revenue) in descending (-1) order."
+          },
+          {
+            "step": 3,
+            "action": "Array Spills",
+            "range": "F2:H3",
+            "explanation": "Result automatically spills across rows without needing Ctrl+Shift+Enter."
+          }
+        ]
+      },
+      "ribbonMethod": {
+        "tab": "Formulas Tab & Data Tab",
+        "clickPath": "Data Tab > Sort & Filter Group > Advanced Filter / Formulas Tab > Name Manager (LAMBDA)",
+        "steps": [
+          "1. Go to 'Data' Tab > Use 'Sort & Filter' group for instant visual filtering.",
+          "2. For Dynamic Arrays, simply type =FILTER(data, condition) in one cell; no Ribbon wizard is required because it auto-spills.",
+          "3. To define custom LAMBDA functions, go to 'Formulas' Tab > Click 'Name Manager' > Add New Name."
+        ],
+        "shortcuts": [
+          {
+            "key": "Ctrl + Shift + L",
+            "desc": "Toggle AutoFilter Dropdowns on headers"
+          },
+          {
+            "key": "Ctrl + F3",
+            "desc": "Open Name Manager to create LAMBDA formulas"
+          },
+          {
+            "key": "Alt + Down Arrow",
+            "desc": "Open Filter Dropdown menu in active header"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mod-7",
+      "number": "07",
+      "title": "Advanced Business Modeling, What-If Analysis & Solver",
+      "category": "Financial Modeling",
+      "difficulty": "Expert",
+      "duration": "75 mins",
+      "badge": "Financial Modeler",
+      "description": {
+        "en": "Build predictive decision models using Goal Seek, 2-Variable Data Sensitivity Tables, Scenario Manager, and complex linear optimization using Excel Solver.",
+        "hi": "Goal Seek, 2-Variable Data Sensitivity Tables, Scenario Manager aur Excel Solver optimization se business decision models banayein."
+      },
+      "definition": {
+        "en": "What-If Analysis and Sensitivity Modeling explore how changes in input assumptions (e.g. pricing, interest rates, unit costs) impact target financial metrics (e.g. EBITDA, Break-Even, NPV).",
+        "hi": "What-If Analysis aur Sensitivity Modeling se hum check karte hain ki agar business assumptions (jaise Price ya Ad Spend) change hon to company ke Profit ya Return par kya asar padega.",
+        "whyItExists": {
+          "en": "Executive decision makers need scenario planning (Best Case, Base Case, Worst Case) before committing capital. Sensitivity tables compute 100 scenario permutations in 1 click.",
+          "hi": "Leadership ko invest karne se pehle Best/Worst scenarios dekhne hote hain. 2-Variable Data Table se aap 1 click me pricing aur cost ki 100 permutations ka heatmap bana sakte hain."
+        }
+      },
+      "visualFlow": {
+        "title": "Goal Seek Reverse Solver Flow",
+        "nodes": [
+          {
+            "label": "Target Goal: $50,000 Profit",
+            "desc": "Desired outcome cell B4",
+            "color": "#10B981"
+          },
+          {
+            "arrow": "➔ Backward Calculation Engine"
+          },
+          {
+            "label": "Adjusting Variable: Units Sold",
+            "desc": "Cell B2 changes iteratively",
+            "color": "#38bdf8"
+          },
+          {
+            "arrow": "➔ Converges on Exact Input"
+          },
+          {
+            "label": "Result: 450 Units Required",
+            "desc": "Zero trial-and-error guesswork",
+            "color": "#fbbf24"
+          }
+        ]
+      },
+      "analystScenario": {
+        "datasetName": "Product_Pricing_Optimization.xlsx",
+        "scenario_en": "Your company is launching an enterprise SaaS tier. Marketing needs to know what minimum subscription price and sign-up conversion rate will hit a target $2.5M EBITDA.",
+        "scenario_hi": "Company naya SaaS product launch kar rahi hai. Management ko target $2.5M Net Profit achieve karne ke liye pricing aur customer conversion rate ka sensitivity table chahiye.",
+        "analystMindset_en": "1. Use Goal Seek for single-parameter backward targets (e.g. finding break-even volume).\n2. Construct 2-Variable Data Tables for price vs churn sensitivity matrices.\n3. Utilize Excel Solver with mathematical constraints (e.g. Max Budget <= $500k) for optimal product mix.",
+        "analystMindset_hi": "1. Single target ke liye Goal Seek use karein.\n2. Sensitivity heatmap ke liye 2-Variable Data Table structure karein.\n3. Multi-constraint budget allocation ke liye Excel Solver use karein."
+      },
+      "progressiveExamples": [
+        {
+          "level": "Beginner (Goal Seek Target Calculation)",
+          "goal": "Find required units to reach $50,000 Net Profit at $150 unit price",
+          "table": {
+            "headers": [
+              "Metric",
+              "Formula / Value",
+              "Goal Seek Target",
+              "Computed Result"
+            ],
+            "rows": [
+              [
+                "Units Sold",
+                "200 (Initial)",
+                "Change this Cell",
+                "450 Units"
+              ],
+              [
+                "Net Profit",
+                "=(Units*150)-17500",
+                "Set to: $50,000",
+                "$50,000"
+              ]
+            ]
+          },
+          "formula": "Data > What-If Analysis > Goal Seek (Set B2 to 50000 by changing B1)",
+          "explanation": "Calculates backwards iteratively to resolve the exact input variable."
+        },
+        {
+          "level": "Intermediate (2-Variable Sensitivity Table)",
+          "goal": "Compute Net Profit across 5 Unit Prices and 4 Volume Scenarios",
+          "table": {
+            "headers": [
+              "Formula Cell B1",
+              "100 Units",
+              "250 Units",
+              "500 Units"
+            ],
+            "rows": [
+              [
+                "$100 Price",
+                "$2,500",
+                "$17,500",
+                "$42,500"
+              ],
+              [
+                "$150 Price",
+                "$7,500",
+                "$30,000",
+                "$67,500"
+              ]
+            ]
+          },
+          "formula": "Data > What-If Analysis > Data Table (Row Input: Price, Col Input: Units)",
+          "explanation": "Automatically evaluates the top-left formula across the 2D permutation grid."
+        },
+        {
+          "level": "Advanced (Financial Feasibility with XNPV & XIRR)",
+          "goal": "Calculate true Net Present Value for irregular project cashflows",
+          "table": {
+            "headers": [
+              "Date",
+              "Cashflow",
+              "Formula",
+              "Output"
+            ],
+            "rows": [
+              [
+                "01-Jan-2025",
+                "-$1,000,000",
+                "=XNPV(0.10, B2:B4, A2:A4)",
+                "$142,580 Net Gain"
+              ],
+              [
+                "15-Jun-2025",
+                "$450,000",
+                "-",
+                "-"
+              ],
+              [
+                "30-Dec-2026",
+                "$800,000",
+                "-",
+                "-"
+              ]
+            ]
+          },
+          "formula": "=XNPV(0.10, B2:B4, A2:A4)",
+          "explanation": "Calculates exact discounted cash flow accounting for exact day counts."
+        }
+      ],
+      "errorDebugging": [
+        {
+          "code": "Goal Seek Failed to Converge",
+          "cause": "The target formula does not have a direct mathematical link to the changing cell.",
+          "fix": "Ensure the target cell formula depends directly or indirectly on the changing cell."
+        }
+      ],
+      "keyConcepts": [
+        {
+          "name": "Goal Seek vs Solver",
+          "en": "Goal Seek changes 1 variable with no constraints; Solver handles up to 200 variables with complex <= / >= constraints.",
+          "hi": "Goal Seek 1 variable change karta hai, Solver 200 variables aur multiple constraints handle karta hai."
+        }
+      ],
+      "simulatorData": {
+        "title": "Goal Seek Target Profit Calculation",
+        "description": "Calculate required Units Sold to reach $50,000 Net Profit at $150/unit price.",
+        "headers": [
+          "Metric",
+          "Input / Formula",
+          "Goal Seek Target",
+          "Result"
+        ],
+        "rows": [
+          [
+            "Unit Price",
+            "$150",
+            "-",
+            "$150"
+          ],
+          [
+            "Units Sold (Variable)",
+            "200",
+            "Change this cell",
+            "450 Units"
+          ],
+          [
+            "Fixed Overhead",
+            "$17,500",
+            "-",
+            "$17,500"
+          ],
+          [
+            "Net Profit (Target: $50,000)",
+            "$12,500",
+            "Set to: 50,000",
+            "$50,000"
+          ]
+        ],
+        "targetCell": "B4",
+        "formula": "GoalSeek(SetCell: B4, ToValue: 50000, ByChanging: B2)",
+        "steps": [
+          {
+            "step": 1,
+            "action": "Define Target Cell",
+            "highlight": [
+              "B4"
+            ],
+            "explanation": "Target cell contains the Net Profit formula =(B1*B2)-B3."
+          },
+          {
+            "step": 2,
+            "action": "Run Goal Seek Algorithm",
+            "explanation": "Excel calculates backwards: (50000 + 17500) / 150 = 450 units needed."
+          },
+          {
+            "step": 3,
+            "action": "Commit Value",
+            "highlight": [
+              "B2"
+            ],
+            "explanation": "Cell B2 updates from 200 to 450 units instantly."
+          }
+        ]
+      },
+      "ribbonMethod": {
+        "tab": "Data Tab",
+        "clickPath": "Data Tab > Forecast Group > What-If Analysis > Goal Seek / Data Table",
+        "steps": [
+          "1. Click 'Data' Tab on Top Ribbon.",
+          "2. Look for the 'Forecast' section on the right side.",
+          "3. Click 'What-If Analysis' > Click 'Goal Seek'.",
+          "4. Set Cell: Select Profit cell. To Value: Type 50000. By Changing Cell: Select Units cell > Click OK!",
+          "5. For 2D Tables, click 'What-If Analysis' > 'Data Table'."
+        ],
+        "shortcuts": [
+          {
+            "key": "Alt + A + W + G",
+            "desc": "Open Goal Seek dialog box directly"
+          },
+          {
+            "key": "Alt + A + W + T",
+            "desc": "Open 2-Variable Data Table dialog"
+          },
+          {
+            "key": "F9",
+            "desc": "Force full workbook recalculation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mod-8",
+      "number": "08",
+      "title": "Power Query (ETL) & Automated Data Pipelines",
+      "category": "ETL & Automation",
+      "difficulty": "Expert",
+      "duration": "85 mins",
+      "badge": "ETL Architect",
+      "description": {
+        "en": "Build automated no-code ETL pipelines: unpivot cross-tabulated data, combine monthly CSV folders automatically, merge relational datasets, and write M-Code transformations.",
+        "hi": "No-code automated ETL pipelines banayein: Unpivot wide datasets, Monthly folder files ko 1 click me merge karein, aur Power Query M-Code transformations seekhein."
+      },
+      "definition": {
+        "en": "Power Query is an enterprise Extract, Transform, and Load (ETL) engine embedded in Excel. It records every data transformation step and replays them automatically whenever you click 'Refresh All'.",
+        "hi": "Power Query Excel ke andar ek automated ETL tool hai. Ye aapke har cleaning step (jaise column split, unpivot, type change) ko record kar leta hai aur naya data aane par 1 click 'Refresh' dabate hi pura process repeat kar deta hai.",
+        "whyItExists": {
+          "en": "Manual copy-pasting and repetitive weekly data formatting wastes hundreds of analyst hours and introduces human error. Power Query automates data prep completely.",
+          "hi": "Har hafte/mahine alag CSV files ko manual copy-paste karne ki zaroorat nahi hai. Power Query folder connection se sab files auto-merge ho jaati hain."
+        }
+      },
+      "visualFlow": {
+        "title": "Power Query Ingestion & Transformation Flow",
+        "nodes": [
+          {
+            "label": "Data Sources (Folder / SQL / Web)",
+            "desc": "Extracts raw files automatically",
+            "color": "#38bdf8"
+          },
+          {
+            "arrow": "➔ Power Query Editor Steps"
+          },
+          {
+            "label": "Applied Steps Pipeline",
+            "desc": "1. Remove Top Rows ➔ 2. Unpivot ➔ 3. Set Types",
+            "color": "#fbbf24"
+          },
+          {
+            "arrow": "➔ Close & Load"
+          },
+          {
+            "label": "Excel Table / Data Model",
+            "desc": "Clean normalized data ready for DAX & Pivot",
+            "color": "#10B981"
+          }
+        ]
+      },
+      "analystScenario": {
+        "datasetName": "Monthly_Branch_Reports/*.csv (12 Files, 500,000 Total Rows)",
+        "scenario_en": "Every month 12 regional branch managers email separate CSV files. Previously, an analyst spent 6 hours manually copy-pasting them into a master sheet.",
+        "scenario_hi": "Har mahine 12 branches se CSV files aati hain. Pehle analyst 6 ghante copy-paste karta tha. Power Query folder connector se is pure workflow ko 1-click automated refresh pipeline me convert karein.",
+        "analystMindset_en": "1. Ingest via `Data > Get Data > From Folder` to enable dynamic multi-file combination.\n2. Apply `Unpivot Other Columns` to convert horizontal month headers (Jan, Feb, Mar...) into normalized long format.\n3. Verify data types are strictly assigned in the M-Query steps before loading to Data Model.",
+        "analystMindset_hi": "1. 'Get Data from Folder' use karein taaki naya CSV aate hi auto-merge ho jaye.\n2. Wide columns ko 'Unpivot' karein taaki data tall database format me convert ho sake.\n3. Power Query editor me Data Types explicitly set karein."
+      },
+      "progressiveExamples": [
+        {
+          "level": "Beginner (Unpivot Wide Cross-Tab Data)",
+          "goal": "Convert wide Month columns into normalized long rows",
+          "table": {
+            "headers": [
+              "Department",
+              "Jan",
+              "Feb",
+              "Normalized Result"
+            ],
+            "rows": [
+              [
+                "Engineering",
+                "50000",
+                "55000",
+                "Eng | Jan | 50000"
+              ],
+              [
+                "Marketing",
+                "30000",
+                "32000",
+                "Eng | Feb | 55000"
+              ]
+            ]
+          },
+          "formula": "Select Department > Transform > Unpivot Other Columns",
+          "explanation": "Transforms wide spreadsheet layout into a tall relational database structure."
+        },
+        {
+          "level": "Intermediate (Merging Queries / SQL Left Join)",
+          "goal": "Join Orders table with Customer Master based on Customer_ID",
+          "table": {
+            "headers": [
+              "Orders Table",
+              "Customers Master",
+              "Joined Result"
+            ],
+            "rows": [
+              [
+                "ORD-101 | CUST-99",
+                "CUST-99 | Priya Nair",
+                "ORD-101 | CUST-99 | Priya Nair"
+              ]
+            ]
+          },
+          "formula": "Home > Merge Queries > Join Kind: Left Outer (all from first, matching from second)",
+          "explanation": "Executes relational SQL Left Join inside visual Power Query UI."
+        },
+        {
+          "level": "Advanced (Folder Dynamic Ingestion Pipeline)",
+          "goal": "Automatically append all CSV files in a shared network folder",
+          "table": {
+            "headers": [
+              "Folder Path",
+              "Action",
+              "Result"
+            ],
+            "rows": [
+              [
+                "C:\\Sales_Data\\*.csv",
+                "Combine Files > Transform Sample",
+                "500,000 Rows consolidated in 3 seconds"
+              ]
+            ]
+          },
+          "formula": "Data > Get Data > From File > From Folder",
+          "explanation": "Automatically loops through all files in folder and applies standardized transformations."
+        }
+      ],
+      "errorDebugging": [
+        {
+          "code": "Data Type Mismatch in Power Query",
+          "cause": "Numbers imported as text causing calculations to fail.",
+          "fix": "Click column header type icon and set to 'Decimal Number' or 'Whole Number'."
+        }
+      ],
+      "keyConcepts": [
+        {
+          "name": "M-Code Language",
+          "en": "Power Query generates declarative M-Code under the hood for repeatable ETL scripts.",
+          "hi": "Power Query background me M-Code script generate karta hai jo automated re-execution karta hai."
+        }
+      ],
+      "simulatorData": {
+        "title": "Power Query Unpivot & Ingestion Pipeline",
+        "description": "Transform cross-tab Month columns into normalized Database rows.",
+        "headers": [
+          "Department",
+          "Jan ($)",
+          "Feb ($)",
+          "Mar ($)",
+          "Transformed Normal Form"
+        ],
+        "rows": [
+          [
+            "Engineering",
+            "45000",
+            "48000",
+            "52000",
+            "Eng | Jan | 45000"
+          ],
+          [
+            "Marketing",
+            "30000",
+            "32000",
+            "35000",
+            "Eng | Feb | 48000"
+          ],
+          [
+            "Sales",
+            "60000",
+            "65000",
+            "71000",
+            "Mkt | Jan | 30000"
+          ]
+        ],
+        "targetCell": "TransformStep",
+        "formula": "=Table.UnpivotOtherColumns(Source, {\"Department\"}, \"Month\", \"Spend\")",
+        "steps": [
+          {
+            "step": 1,
+            "action": "Select Department Column",
+            "highlight": [
+              "Engineering",
+              "Marketing"
+            ],
+            "explanation": "Right-click Department column -> Select 'Unpivot Other Columns'."
+          },
+          {
+            "step": 2,
+            "action": "M-Code Generation",
+            "formulaText": "Table.UnpivotOtherColumns(#\"PreviousStep\", {\"Department\"}, \"Month\", \"Spend\")",
+            "explanation": "Power Query collapses 3 month columns into a normalized 2-column structure."
+          },
+          {
+            "step": 3,
+            "action": "Close & Load to Data Model",
+            "explanation": "Data loads into Excel Pivot Cache ready for DAX measures."
+          }
+        ]
+      },
+      "ribbonMethod": {
+        "tab": "Data Tab (Power Query / Get & Transform)",
+        "clickPath": "Data Tab > Get Data > From File > From Folder / From Workbook",
+        "steps": [
+          "1. Click 'Data' Tab on Top Ribbon.",
+          "2. Click 'Get Data' (top left corner) > 'From File' > 'From Folder'.",
+          "3. Select folder containing monthly CSV files > Click 'Combine & Transform Data'.",
+          "4. In Power Query Editor, right-click any column > Click 'Unpivot Other Columns'.",
+          "5. Click 'Close & Load' (top left) to load clean data into Excel."
+        ],
+        "shortcuts": [
+          {
+            "key": "Alt + A + P + N",
+            "desc": "Open Power Query Editor"
+          },
+          {
+            "key": "Ctrl + Alt + F5",
+            "desc": "Refresh all Power Query connections"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mod-9",
+      "number": "09",
+      "title": "Excel VBA & Macros for Repetitive Task Automation",
+      "category": "Automation",
+      "difficulty": "Advanced",
+      "duration": "70 mins",
+      "badge": "VBA Developer",
+      "description": {
+        "en": "Automate recurring daily reporting routines: recording macros, writing clean VBA scripts, looping through rows/worksheets, and building custom User Defined Functions (UDFs).",
+        "hi": "Daily recurring reports ko automate karein: Macro recording, clean VBA script writing, worksheets me loops chalana, aur Custom Functions (UDFs) create karna."
+      },
+      "definition": {
+        "en": "VBA (Visual Basic for Applications) is Excel's internal programming language that allows analysts to automate repetitive spreadsheet tasks, build custom user defined functions (UDFs), and interact with external systems.",
+        "hi": "VBA Excel ki programming language hai jisse aap daily ke boring repetitive kaamo ko 1 click button se automate kar sakte hain aur custom formulas (UDFs) bana sakte hain.",
+        "whyItExists": {
+          "en": "Daily tasks like formatting 20 departmental tabs and generating password-protected PDFs can take 2 hours manually. A VBA script executes the entire batch in 4 seconds.",
+          "hi": "Har roz 20 tabs ko format karke PDF banane me 2 ghante lagte hain. VBA macro ye sara kaam 4 seconds me zero error ke sath kar deta hai."
+        }
+      },
+      "visualFlow": {
+        "title": "VBA Optimization Execution Loop",
+        "nodes": [
+          {
+            "label": "1. Speed Flags",
+            "desc": "Application.ScreenUpdating = False",
+            "color": "#38bdf8"
+          },
+          {
+            "arrow": "➔ 2. Loop Execution"
+          },
+          {
+            "label": "For Each ws In Worksheets",
+            "desc": "Iterates dynamically across all department tabs",
+            "color": "#fbbf24"
+          },
+          {
+            "arrow": "➔ 3. Batch Action"
+          },
+          {
+            "label": "ws.ExportAsFixedFormat (PDF)",
+            "desc": "Generates PDF reports automatically",
+            "color": "#10B981"
+          },
+          {
+            "arrow": "➔ 4. Teardown"
+          },
+          {
+            "label": "Application.ScreenUpdating = True",
+            "desc": "Restores UI display state",
+            "color": "#a855f7"
+          }
+        ]
+      },
+      "analystScenario": {
+        "datasetName": "Daily_EOD_Reconciliation.xlsm",
+        "scenario_en": "Every evening at 6:00 PM, you must export 20 individual department tabs, apply formatting, save them as separate password-protected PDFs, and email them to stakeholders.",
+        "scenario_hi": "Har sham 6 baje aapko 20 alag-alag department tabs ko format karke PDF banana padta hai aur managers ko bhejna padta hai. Is manual 1.5 ghante ke kaam ko 1 click VBA Macro button se 5 seconds me automate karein.",
+        "analystMindset_en": "1. Disable screen updating (`Application.ScreenUpdating = False`) for 10x macro execution speed.\n2. Write structured `For Each ws In ThisWorkbook.Worksheets` loops instead of hardcoding sheet names.\n3. Create custom UDFs (e.g. `ExtractNumbers(cell)`) for complex regex string parsing.",
+        "analystMindset_hi": "1. Macro ke start me `Application.ScreenUpdating = False` lagayein taaki screen flick na kare aur code 10x fast chale.\n2. Hardcode karne ke bajaye Worksheets par `For Each` Loop chalayein.\n3. Custom Formula (UDF) banayein jo regular Excel me exist nahi karta."
+      },
+      "progressiveExamples": [
+        {
+          "level": "Beginner (Clean Standard Formatting Macro)",
+          "goal": "Format headers with corporate green theme and auto-fit columns across sheet",
+          "table": {
+            "headers": [
+              "VBA Code Snippet",
+              "Action"
+            ],
+            "rows": [
+              [
+                "Range(\"A1:Z1\").Interior.Color = RGB(16, 124, 65)",
+                "Applies official Microsoft Emerald Green header banner"
+              ],
+              [
+                "Cells.EntireColumn.AutoFit",
+                "Instantly auto-fits all column widths"
+              ]
+            ]
+          },
+          "formula": "Sub FormatReport() ... End Sub",
+          "explanation": "Automates standard visual styling with 1 click."
+        },
+        {
+          "level": "Intermediate (Looping Through Worksheets)",
+          "goal": "Unhide and apply filters to all tabs in the workbook",
+          "table": {
+            "headers": [
+              "Loop Structure",
+              "Operation"
+            ],
+            "rows": [
+              [
+                "For Each ws In ThisWorkbook.Worksheets",
+                "Loops through every single tab dynamically"
+              ],
+              [
+                "ws.Range(\"A1\").AutoFilter",
+                "Applies filter on header row"
+              ]
+            ]
+          },
+          "formula": "For Each ws In Worksheets: ws.Visible = xlSheetVisible: Next ws",
+          "explanation": "Eliminates repetitive manual clicking across 50 tabs."
+        },
+        {
+          "level": "Advanced (Custom User Defined Function - UDF)",
+          "goal": "Build a custom formula =ExtractNumbers(A2) to strip text from mixed alphanumeric codes",
+          "table": {
+            "headers": [
+              "Input Cell (A2)",
+              "Custom Formula",
+              "Result"
+            ],
+            "rows": [
+              [
+                "ORD-9984-BLR",
+                "=ExtractNumbers(A2)",
+                "9984"
+              ]
+            ]
+          },
+          "formula": "Function ExtractNumbers(txt As String) As Long ... End Function",
+          "explanation": "Custom UDF can be called directly in spreadsheet cells like standard Excel functions."
+        }
+      ],
+      "errorDebugging": [
+        {
+          "code": "Runtime Error 9: Subscript out of range",
+          "cause": "Referencing a worksheet name or range that does not exist in the workbook.",
+          "fix": "Verify sheet name spelling or loop dynamically using Worksheets collection."
+        }
+      ],
+      "keyConcepts": [
+        {
+          "name": "Application Optimization Flags",
+          "en": "Turn off ScreenUpdating and Calculation before running loops to boost speed.",
+          "hi": "ScreenUpdating = False lagane se macro 10x fast execute hota hai."
+        }
+      ],
+      "simulatorData": {
+        "title": "VBA Auto-Report Generation Loop",
+        "description": "Simulate VBA script running across multiple regional sheets.",
+        "headers": [
+          "Sub AutoGenerateReports()",
+          "Execution Step",
+          "Status"
+        ],
+        "rows": [
+          [
+            "Application.ScreenUpdating = False",
+            "Disables UI repaint for max performance",
+            "Active"
+          ],
+          [
+            "For Each ws In Worksheets",
+            "Iterates through North, South, East, West tabs",
+            "Running"
+          ],
+          [
+            "ws.ExportAsFixedFormat xlTypePDF",
+            "Generates secure PDF for current department",
+            "Completed"
+          ],
+          [
+            "Application.ScreenUpdating = True",
+            "Restores normal application state",
+            "Finished"
+          ]
+        ],
+        "targetCell": "VBAConsole",
+        "formula": "Call Run_Daily_Distribution_Macro()",
+        "steps": [
+          {
+            "step": 1,
+            "action": "Initialize Macro",
+            "highlight": [
+              "Sub AutoGenerateReports()"
+            ],
+            "explanation": "Instantiates memory buffer and suppresses screen flickering."
+          },
+          {
+            "step": 2,
+            "action": "Loop through Sheets",
+            "range": "Rows 2:3",
+            "explanation": "Dynamically accesses all 20 sheets, formats ranges and outputs PDF files."
+          },
+          {
+            "step": 3,
+            "action": "Complete & Notify",
+            "explanation": "Reports saved to disk in 3.2 seconds with zero human error."
+          }
+        ]
+      },
+      "ribbonMethod": {
+        "tab": "Developer Tab",
+        "clickPath": "Developer Tab > Code Group > Record Macro / Visual Basic (Alt + F11)",
+        "steps": [
+          "1. Enable Developer Tab: File > Options > Customize Ribbon > Check 'Developer'.",
+          "2. Click 'Developer' Tab > Click 'Record Macro' > Perform your repetitive actions > Click 'Stop Recording'.",
+          "3. Click 'Developer' Tab > 'Insert' > 'Button (Form Control)' to place a clickable button on the sheet.",
+          "4. Click 'Visual Basic' (or press Alt + F11) to view and edit clean VBA code."
+        ],
+        "shortcuts": [
+          {
+            "key": "Alt + F11",
+            "desc": "Open VBA Visual Basic Editor"
+          },
+          {
+            "key": "Alt + F8",
+            "desc": "Open Macro Run / Manage dialog"
+          },
+          {
+            "key": "F5",
+            "desc": "Run Macro Sub in VBA Editor"
+          },
+          {
+            "key": "F8",
+            "desc": "Step Into VBA code line-by-line"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mod-10",
+      "number": "10",
+      "title": "Executive Dashboard Design & Data Storytelling",
+      "category": "Visualization",
+      "difficulty": "Mastery",
+      "duration": "90 mins",
+      "badge": "Dashboard Master",
+      "description": {
+        "en": "Design C-Suite level interactive dashboards: KPI summary cards, dynamic trend sparklines, camera tool snapshots, conditional formatting heatmaps, and clean gridless presentation.",
+        "hi": "C-Suite executive level modern dashboards banayein: KPI Cards, Sparklines, Camera Tool snapshots, Conditional Formatting Heatmaps aur clean UI design."
+      },
+      "definition": {
+        "en": "An Executive Dashboard is a consolidated visual decision interface that distills complex business metrics into high-impact KPI scorecards, trend lines, and interactive slicers on a single clean page.",
+        "hi": "Executive Dashboard ek aisi 1-page visual screen hoti hai jisme company ke CEO/VP ko pure business ki health (Revenue, Profit, Churn) high-level KPI cards aur interactive charts me dikhti hai.",
+        "whyItExists": {
+          "en": "Executives do not have time to read 50,000 raw rows. Dashboards provide immediate visual clarity on whether targets are being met and where anomalies occur.",
+          "hi": "C-Suite leaders raw data nahi padhte. Unhe clean KPI cards aur variance indicators chahiye hote hain taaki wo 5 seconds me right business decision le sakein."
+        }
+      },
+      "visualFlow": {
+        "title": "Executive Dashboard Layout Architecture",
+        "nodes": [
+          {
+            "label": "Top KPI Scorecard Band",
+            "desc": "4 Hero Cards: Revenue, Gross Margin, CAC, Churn %",
+            "color": "#10B981"
+          },
+          {
+            "arrow": "➔ Slicer Control"
+          },
+          {
+            "label": "Interactive Filter Panel",
+            "desc": "Connected Timeline & Regional Slicers",
+            "color": "#38bdf8"
+          },
+          {
+            "arrow": "➔ Main Visual Area"
+          },
+          {
+            "label": "Dynamic Charts & Sparklines",
+            "desc": "Clean gridless trendlines linked to dynamic titles",
+            "color": "#fbbf24"
+          }
+        ]
+      },
+      "analystScenario": {
+        "datasetName": "Executive_Quarterly_Review_2025.xlsx",
+        "scenario_en": "Your CEO requested a 1-page high-impact performance dashboard. Cluttered charts with default 3D Excel styling, dark gridlines, and confusing legends will be rejected. You must build a clean, dark-mode modern dashboard.",
+        "scenario_hi": "CEO ko 1-page high-impact board review dashboard chahiye. Purane default 3D charts aur confusing colors ki jagah modern clean KPI cards, trend sparklines aur interactive slicers ke sath state-of-the-art dashboard design karein.",
+        "analystMindset_en": "1. Remove default gridlines (`View > Uncheck Gridlines`) and use soft card containers with subtle borders.\n2. Design KPI Cards with large headline metrics, delta change indicators (▲ +14.2% vs Target), and embedded micro-sparklines.\n3. Implement dynamic chart title labels using `=\"Revenue Trend - \" & Slicer_Selection`.",
+        "analystMindset_hi": "1. Excel ke default gridlines hata kar clean card layout banayein.\n2. KPI Cards me Primary Number bada rakhein aur sath me Comparison indicator (▲ +14.2% Green) lagayein.\n3. Slicer ke selection ke sath Chart Titles ko dynamic formula se connect karein."
+      },
+      "progressiveExamples": [
+        {
+          "level": "Beginner (Gridless KPI Scorecard Card)",
+          "goal": "Create a clean KPI card with metric name and large primary value",
+          "table": {
+            "headers": [
+              "KPI Metric",
+              "Value",
+              "Target",
+              "Status"
+            ],
+            "rows": [
+              [
+                "Net Revenue",
+                "$4,850,000",
+                "$4,500,000",
+                "🟢 +7.8% EXCEEDED"
+              ],
+              [
+                "Monthly Churn",
+                "2.10%",
+                "1.50%",
+                "🔴 +0.6% ATTENTION"
+              ]
+            ]
+          },
+          "formula": "=IF(Variance>0, \"🟢 \", \"🔴 \") & TEXT(Variance, \"+0.0%\")",
+          "explanation": "Dynamic conditional symbols visually direct attention to exceptions."
+        },
+        {
+          "level": "Intermediate (In-Cell Trend Sparklines)",
+          "goal": "Embed 12-month mini line charts directly inside single table cells",
+          "table": {
+            "headers": [
+              "Department",
+              "Monthly Trend (Jan-Dec)",
+              "Q4 Total"
+            ],
+            "rows": [
+              [
+                "Technology",
+                "[Sparkline Line Chart: 📈]",
+                "$1,250,000"
+              ],
+              [
+                "Healthcare",
+                "[Sparkline Line Chart: 📉]",
+                "$840,000"
+              ]
+            ]
+          },
+          "formula": "Insert > Sparklines > Line (Data Range: B2:M2)",
+          "explanation": "Displays historical momentum without cluttering the screen with full-sized charts."
+        },
+        {
+          "level": "Advanced (Dynamic Formula-Driven Chart Titles)",
+          "goal": "Auto-update Chart Title based on interactive Slicer selection",
+          "table": {
+            "headers": [
+              "Slicer Selection Cell (A1)",
+              "Formula Cell (B1)",
+              "Chart Header Display"
+            ],
+            "rows": [
+              [
+                "North America",
+                "=\"Q4 Performance Breakdown - \" & A1",
+                "Q4 Performance Breakdown - North America"
+              ]
+            ]
+          },
+          "formula": "Click Chart Title > in Formula Bar type =Sheet1!$B$1",
+          "explanation": "Links chart visual title directly to dynamic calculation cell."
+        }
+      ],
+      "errorDebugging": [
+        {
+          "code": "Dashboard Lagging on Slicer Click",
+          "cause": "Too many volatile formulas (OFFSET, INDIRECT) calculating simultaneously on every filter change.",
+          "fix": "Replace volatile functions with INDEX-MATCH and pre-calculated Pivot Caches."
+        }
+      ],
+      "keyConcepts": [
+        {
+          "name": "KPI Card Anatomy",
+          "en": "Title, Headline Value, Trend Symbol (▲ / ▼), Variance %, and Micro-sparkline.",
+          "hi": "KPI Card me Metric Name, Bada Value Number, Comparison % aur mini-sparkline hoti hai."
+        }
+      ],
+      "simulatorData": {
+        "title": "Executive KPI Scorecard Simulator",
+        "description": "Interactive Executive KPI Cards with dynamic variance metrics.",
+        "headers": [
+          "KPI Metric",
+          "Current Q3 Value",
+          "Target Budget",
+          "Variance %",
+          "Status"
+        ],
+        "rows": [
+          [
+            "Total Net Revenue",
+            "$4,850,000",
+            "$4,500,000",
+            "+7.8%",
+            "🟢 EXCEEDED"
+          ],
+          [
+            "Customer Acq Cost",
+            "$142.00",
+            "$160.00",
+            "-11.25%",
+            "🟢 OPTIMAL"
+          ],
+          [
+            "Monthly Churn Rate",
+            "2.10%",
+            "1.50%",
+            "+0.60%",
+            "🔴 ATTENTION"
+          ],
+          [
+            "Gross Profit Margin",
+            "68.4%",
+            "65.0%",
+            "+3.4%",
+            "🟢 EXCEEDED"
+          ]
+        ],
+        "targetCell": "ScorecardCard",
+        "formula": "=IF(Variance>0, \"🟢 \", \"🔴 \") & TEXT(Variance, \"+0.0%\")",
+        "steps": [
+          {
+            "step": 1,
+            "action": "Compute Variance",
+            "highlight": [
+              "+7.8%",
+              "-11.25%"
+            ],
+            "explanation": "Calculates variance against baseline targets."
+          },
+          {
+            "step": 2,
+            "action": "Apply Conditional Formatting",
+            "highlight": [
+              "🟢 EXCEEDED",
+              "🔴 ATTENTION"
+            ],
+            "explanation": "Dynamic color rules visually guide executive attention to anomalies."
+          },
+          {
+            "step": 3,
+            "action": "Attach Mini Sparklines",
+            "explanation": "Visualizes 12-month historical trajectory within a single table cell."
+          }
+        ]
+      },
+      "ribbonMethod": {
+        "tab": "Insert, Page Layout & View Tabs",
+        "clickPath": "Insert Tab > Sparklines / Charts Group > KPI Dashboard Layout",
+        "steps": [
+          "1. Go to 'View' Tab > Uncheck 'Gridlines' and 'Headings' for a clean modern app look.",
+          "2. Go to 'Insert' Tab > Sparklines group > Click 'Line' or 'Column' to embed mini-charts in single cells.",
+          "3. Go to 'Insert' Tab > Illustrations > Shapes > Insert rounded cards for KPI metrics.",
+          "4. Click on Chart Title > in Formula Bar type =A1 to link title dynamically."
+        ],
+        "shortcuts": [
+          {
+            "key": "Alt + N + S + L",
+            "desc": "Insert Line Sparkline"
+          },
+          {
+            "key": "F11",
+            "desc": "Create instant Chart sheet from selected data"
+          },
+          {
+            "key": "Alt + F1",
+            "desc": "Insert default chart on active sheet"
+          }
+        ]
+      }
+    }
+  ],
+  "practiceSolvedProblems": [
+    {
+      "id": "prac-case-1",
+      "title": "Case Study 1: E-Commerce Customer Churn & Lifetime Value (LTV) Diagnostics",
+      "difficulty": "Medium",
+      "category": "Customer Analytics",
+      "estimatedTime": "25 mins",
+      "datasetSchema": "Raw_Subscriptions_Log.csv (50,000 Rows: Customer_ID, Signup_Date, Last_Login_Date, Plan_Type, Monthly_Fee, Total_Tickets)",
+      "businessProblem": {
+        "en": "The VP of Growth noticed a spike in Q3 customer churn. You must identify customers who have not logged in for over 90 days, compute their Total Lifetime Spend, and classify them into Risk Cohorts ('Critical Churn Risk', 'Moderate Risk', 'Healthy') without crashing spreadsheet performance.",
+        "hi": "VP of Growth ne dekha ki Q3 me customer churn badh gaya hai. Aapko un customers ko identify karna hai jinhone 90 days se login nahi kiya, unka Lifetime Spend calculate karna hai, aur unhe Risk Cohorts me classify karna hai."
+      },
+      "analystThinkingBlueprint": [
+        {
+          "step": "Phase 1: Date Hygiene & Days-Since-Login Diagnosis",
+          "mindset": "Excel dates are serial integers starting from Jan 1, 1900. If dates are stored as strings (e.g. '09/13/2026'), standard subtraction `=TODAY() - Last_Login` fails with #VALUE!.",
+          "action": "Wrap raw date in `DATEVALUE(TRIM(C2))` or verify with `ISNUMBER()`. Compute inactivity delta: `=DAYS(TODAY(), C2)`."
+        },
+        {
+          "step": "Phase 2: Multi-Tier Risk Classification Logic",
+          "mindset": "Avoid 4-level nested IFs. Construct an `IFS()` statement where inactivity > 90 days AND support tickets >= 5 gets 'Critical Churn Risk'.",
+          "action": "`=IFS(AND(D2>90, E2>=5), \"Critical Churn Risk\", D2>60, \"Moderate Risk\", TRUE, \"Healthy\")`"
+        },
+        {
+          "step": "Phase 3: Dynamic Cohort Spill Aggregation",
+          "mindset": "Management needs a dedicated sub-table of all 'Critical' churners sorted by highest Monthly Fee.",
+          "action": "`=SORT(FILTER(A2:E500, F2:F500=\"Critical Churn Risk\"), 5, -1)`"
+        }
+      ],
+      "stepByStepSolution": {
+        "step1_Formula": "=DAYS(TODAY(), C2)",
+        "step1_Desc": "Calculates exact inactivity days between current date and Last_Login_Date.",
+        "step2_Formula": "=IFS(AND(D2>90, E2>=5), \"Critical Churn Risk\", D2>60, \"Moderate Risk\", TRUE, \"Healthy\")",
+        "step2_Desc": "Classifies users into actionable customer success cohorts.",
+        "step3_Formula": "=SORT(FILTER(A2:F500, F2:F500=\"Critical Churn Risk\"), 5, -1)",
+        "step3_Desc": "Dynamically spills high-value churning accounts to the executive review sheet."
+      },
+      "alternativeApproaches": "Using VBA Macros vs Dynamic Array FILTER. FILTER is 100x better here because it updates in real time without macro security warnings on stakeholder machines.",
+      "businessTakeaway": "Immediate insight: 412 accounts accounting for $62,000 MRR were identified as Critical, allowing the Customer Success team to launch targeted retention campaigns."
+    },
+    {
+      "id": "prac-case-2",
+      "title": "Case Study 2: Multi-Currency Global Revenue Consolidation with Dynamic Exchange Rates",
+      "difficulty": "Hard",
+      "category": "Financial Consolidation",
+      "estimatedTime": "30 mins",
+      "datasetSchema": "Global_Transactions_2026.xlsx (Sheets: Transactions, Forex_Rates_Table)",
+      "businessProblem": {
+        "en": "Your company operates across 6 countries (USD, EUR, GBP, INR, JPY, CAD). Transactions sheet contains transaction dates and local currency amounts. Forex_Rates_Table contains date-specific currency rates. You must calculate the normalized USD revenue for every transaction, accounting for missing weekend exchange rates using approximate downward match.",
+        "hi": "Company 6 countries me operate karti hai. Transactions local currencies me hain. Forex table me daily exchange rates hain. Aapko har transaction ka USD Revenue nikalna hai aur weekend par matching rate na hone par nearest prior date rate fetch karna hai."
+      },
+      "analystThinkingBlueprint": [
+        {
+          "step": "Phase 1: Identifying the Lookup Dimension Mismatch",
+          "mindset": "Standard VLOOKUP fails because we have a 2-key lookup: Currency Code + Transaction Date. Furthermore, weekends have no rate recorded.",
+          "action": "Use XLOOKUP with Approximate Match Mode (-1 = Exact match or next smaller item)."
+        },
+        {
+          "step": "Phase 2: Constructing 2-Way Filtered Vector Match",
+          "mindset": "Filter the Forex table by Currency first, then locate the effective date.",
+          "action": "`=XLOOKUP(Txn_Date, FILTER(Forex!DateCol, Forex!CurrCol=Local_Curr), FILTER(Forex!RateCol, Forex!CurrCol=Local_Curr), , -1)`"
+        },
+        {
+          "step": "Phase 3: Computing Normalized Revenue & Margin",
+          "mindset": "Multiply Local_Amount * Fetched_Rate with rounding safeguards.",
+          "action": "`=ROUND(Local_Amount * Fetched_USD_Rate, 2)`"
+        }
+      ],
+      "stepByStepSolution": {
+        "step1_Formula": "=XLOOKUP(B2, FILTER(Forex!$A$2:$A$1000, Forex!$B$2:$B$1000=C2), FILTER(Forex!$C$2:$C$1000, Forex!$B$2:$B$1000=C2), 1, -1)",
+        "step1_Desc": "Fetches effective exchange rate for currency C2 on date B2 with -1 fallback.",
+        "step2_Formula": "=ROUND(D2 * E2, 2)",
+        "step2_Desc": "Converts Local Currency (D2) to USD (E2) with 2 decimal precision.",
+        "step3_Formula": "=SUMIFS(F2:F50000, G2:G50000, \"Enterprise\", B2:B50000, \">=\" & DATE(2026,1,1))",
+        "step3_Desc": "Aggregates total normalized USD revenue for Q1 2026."
+      },
+      "alternativeApproaches": "INDEX-MATCH 2-way matrix vs XLOOKUP with FILTER vector. The XLOOKUP+FILTER pattern eliminates the need for sorting the forex table in strict order.",
+      "businessTakeaway": "Eliminates $18,000 currency conversion discrepancies previously caused by manual rate approximations."
+    },
+    {
+      "id": "prac-case-3",
+      "title": "Case Study 3: HR Attrition Risk & Compensation Equity Diagnostics",
+      "difficulty": "Hard",
+      "category": "HR Analytics",
+      "estimatedTime": "35 mins",
+      "datasetSchema": "HR_Master_Roster.xlsx (12,000 Employees: Emp_ID, Dept, Job_Grade, Salary, Performance_Score, Years_At_Company)",
+      "businessProblem": {
+        "en": "HR Leadership suspects salary compression where new hires in Grade 4 earn more than high-performing veterans in Grade 4. You must compute the Departmental Grade Median, calculate the Compa-Ratio (Salary / Grade Median), and flag undercompensated top-performers.",
+        "hi": "HR Leadership ko check karna hai ki kya High Performing puraane employees ka salary Grade Median se kam hai (Salary Compression). Compa-Ratio calculate karein aur compensation correction recommend karein."
+      },
+      "analystThinkingBlueprint": [
+        {
+          "step": "Phase 1: Multi-Condition Grade Median Calculation",
+          "mindset": "Standard MEDIAN doesn't accept multiple criteria natively like MEDIANIFS (which does not exist in standard Excel).",
+          "action": "Combine `MEDIAN(FILTER(Salary_Range, (Dept_Range=D2) * (Grade_Range=E2)))`."
+        },
+        {
+          "step": "Phase 2: Compa-Ratio & Variance Metric",
+          "mindset": "Compa-Ratio = Employee Salary / Grade Median Salary. A ratio < 0.85 indicates severe underpayment.",
+          "action": "`=Salary / Median_Salary`"
+        },
+        {
+          "step": "Phase 3: Flagging High-Risk Retentions",
+          "mindset": "If Performance >= 4.5 AND Compa-Ratio < 0.85, trigger '🔴 IMMEDIATE SALARY ADJUSTMENT REQUIRED'.",
+          "action": "`=IF(AND(Perf>=4.5, CompaRatio<0.85), \"🔴 Critical Retention Risk\", \"🟢 Balanced\")`"
+        }
+      ],
+      "stepByStepSolution": {
+        "step1_Formula": "=MEDIAN(FILTER($D$2:$D$12000, ($B$2:$B$12000=B2) * ($C$2:$C$12000=C2)))",
+        "step1_Desc": "Calculates exact department-grade salary median dynamically.",
+        "step2_Formula": "=D2 / E2",
+        "step2_Desc": "Computes individual Employee Compa-Ratio.",
+        "step3_Formula": "=IFS(AND(F2>=4.5, G2<0.85), \"🔴 Flight Risk (Underpaid)\", G2<0.85, \"⚠️ Below Median\", TRUE, \"🟢 Market Aligned\")",
+        "step3_Desc": "Generates executive retention flag for compensation review board."
+      },
+      "alternativeApproaches": "Using Pivot Tables to look up medians vs In-cell Dynamic Array FILTER. In-cell FILTER ensures the roster updates row-by-row instantly without refreshing caches.",
+      "businessTakeaway": "Identified 84 top-tier software engineers at risk of attrition, enabling executive intervention before competitor poaching."
+    },
+    {
+      "id": "prac-case-4",
+      "title": "Case Study 4: Supply Chain Reorder Point & Stockout Prediction Model",
+      "difficulty": "Medium",
+      "category": "Supply Chain & Operations",
+      "estimatedTime": "25 mins",
+      "datasetSchema": "Warehouse_Inventory_Active.xlsx (SKU_ID, Category, Current_Stock, Avg_Daily_Usage, Lead_Time_Days, Safety_Stock)",
+      "businessProblem": {
+        "en": "A logistics warehouse experiences stockouts on fast-moving items due to erratic vendor lead times. Build an automated reorder warning system calculating Dynamic Reorder Points (ROP = (Daily Usage * Lead Time) + Safety Stock) and days-of-inventory-remaining.",
+        "hi": "Warehouse me fast-moving items stockout ho rahe hain. Dynamic Reorder Point (ROP = (Daily Usage * Lead Time) + Safety Stock) calculate karein aur automated PO triggers generate karein."
+      },
+      "analystThinkingBlueprint": [
+        {
+          "step": "Phase 1: Mathematical Formula Modeling",
+          "mindset": "Reorder Point is reached when Current Stock <= (Avg_Daily_Demand * Supplier_Lead_Time) + Safety_Stock.",
+          "action": "`=(DailyDemand * LeadTime) + SafetyStock`"
+        },
+        {
+          "step": "Phase 2: Days of Inventory Remaining (Runway)",
+          "mindset": "Days remaining = Current Stock / Daily Demand. Protect against #DIV/0! if daily demand is 0.",
+          "action": "`=IF(DailyDemand>0, CurrentStock/DailyDemand, 999)`"
+        },
+        {
+          "step": "Phase 3: Order Quantity Sizing",
+          "mindset": "If Trigger = REORDER, calculate Economic Order Quantity or Target Max Stock shortfall.",
+          "action": "`=IF(Stock<=ROP, MaxStock-Stock, 0)`"
+        }
+      ],
+      "stepByStepSolution": {
+        "step1_Formula": "=(C2 * D2) + E2",
+        "step1_Desc": "Computes exact statistical Reorder Point (ROP) threshold in units.",
+        "step2_Formula": "=IF(B2 <= F2, \"🚨 TRIGGER REORDER\", \"✅ ADEQUATE\")",
+        "step2_Desc": "Compares Current Stock (B2) with ROP (F2) to generate visual procurement alerts.",
+        "step3_Formula": "=IF(B2<=F2, G2-B2, 0)",
+        "step3_Desc": "Calculates units to order to restore inventory to Maximum Warehouse Capacity (G2)."
+      },
+      "alternativeApproaches": "Static reorder levels vs Dynamic lead-time adjusted ROP. Dynamic ROP reduces excess holding costs by 22% while dropping stockouts to under 0.5%.",
+      "businessTakeaway": "Automated replenishment pipeline prevents over $120,000 in monthly lost ecommerce sales."
+    },
+    {
+      "id": "prac-case-5",
+      "title": "Case Study 5: SaaS Cohort Retention Matrix & Net Revenue Retention (NRR) Model",
+      "difficulty": "Expert",
+      "category": "SaaS Financial Modeling",
+      "estimatedTime": "45 mins",
+      "datasetSchema": "SaaS_Monthly_Recurring_Revenue.xlsx (100,000 Rows: Customer_ID, Cohort_Month, Activity_Month, MRR)",
+      "businessProblem": {
+        "en": "Your SaaS board wants a Triangle Cohort Retention Matrix showing what percentage of Month 0 revenue is retained across Month 1, Month 2, Month 3... Month 12 for each signup cohort, calculating Net Revenue Retention (NRR).",
+        "hi": "SaaS Board meeting ke liye Triangle Cohort Retention Matrix banana hai jisme Month 0 se Month 12 tak customer cohort ka Net Revenue Retention (NRR %) track ho."
+      },
+      "analystThinkingBlueprint": [
+        {
+          "step": "Phase 1: Calculating Cohort Age Delta Index",
+          "mindset": "Cohort Age = DATEDIF(Cohort_Month, Activity_Month, \"M\"). This creates integer column indices (0, 1, 2, ... 12).",
+          "action": "`=DATEDIF(B2, C2, \"M\")`"
+        },
+        {
+          "step": "Phase 2: 2-Way Multi-Condition Matrix Summation",
+          "mindset": "Build matrix with Cohort Months on Rows (Jan 2025...) and Cohort Age on Columns (M0, M1, M2...).",
+          "action": "`=SUMIFS(MRR_Col, Cohort_Col, $A2, Age_Col, B$1)`"
+        },
+        {
+          "step": "Phase 3: Percentage Retention Matrix Normalized to Month 0",
+          "mindset": "Divide every subsequent month's revenue by Month 0 baseline: `=Cell_Value / $B2`.",
+          "action": "Apply 3-Color Conditional Formatting Scale (Green > 100%, Yellow = 100%, Red < 80%)."
+        }
+      ],
+      "stepByStepSolution": {
+        "step1_Formula": "=(YEAR(C2)-YEAR(B2))*12 + MONTH(C2)-MONTH(B2)",
+        "step1_Desc": "Computes exact month age difference between signup cohort and billing month.",
+        "step2_Formula": "=SUMIFS($D$2:$D$100000, $B$2:$B$100000, $A2, $E$2:$E$100000, B$1)",
+        "step2_Desc": "Populates the raw dollar cohort matrix with mixed cell referencing.",
+        "step3_Formula": "=B2 / $B2",
+        "step3_Desc": "Computes normalized Net Revenue Retention percentage against Month 0 baseline ($B2)."
+      },
+      "alternativeApproaches": "Python Pandas cohort pivot vs Native Excel SUMIFS Matrix. Excel enables live interactive what-if adjustments directly in board presentations.",
+      "businessTakeaway": "Proves 114% NRR in enterprise cohorts, justifying a $20M Series B valuation expansion."
+    }
+  ],
+  "assessment": {
+    "totalMarks": 50,
+    "mcqMarks": 20,
+    "practicalMarks": 30,
+    "timeLimitMinutes": 45,
+    "mcqs": [
+      {
+        "id": "mcq-1",
+        "question": "In a corporate sales sheet, which formula locks both the Column and the Row when dragged across cells?",
+        "options": [
+          "A1",
+          "$A1",
+          "A$1",
+          "$A$1"
+        ],
+        "correctAnswer": "$A$1",
+        "explanation": "$A$1 represents absolute referencing where both column A and row 1 are fixed with dollar signs.",
+        "marks": 1
+      },
+      {
+        "id": "mcq-2",
+        "question": "A Data Analyst receives a CSV file where VLOOKUP returns #N/A for customer names that visibly look identical. What is the most probable cause?",
+        "options": [
+          "The font style is bold in one sheet",
+          "There are invisible trailing non-breaking spaces (CHAR 160 or ASCII 32)",
+          "The sheet zoom level is below 100%",
+          "The column width is too small"
+        ],
+        "correctAnswer": "There are invisible trailing non-breaking spaces (CHAR 160 or ASCII 32)",
+        "explanation": "Web-scraped and exported CSV data often contains invisible trailing spaces or non-breaking spaces (CHAR 160) which cause exact string matches to fail.",
+        "marks": 1
+      },
+      {
+        "id": "mcq-3",
+        "question": "What is the key structural advantage of XLOOKUP over traditional VLOOKUP?",
+        "options": [
+          "XLOOKUP only works on numeric data",
+          "XLOOKUP can perform lookups to the left without altering column order",
+          "XLOOKUP requires sorting data in ascending order first",
+          "XLOOKUP requires Ctrl+Shift+Enter in all Excel versions"
+        ],
+        "correctAnswer": "XLOOKUP can perform lookups to the left without altering column order",
+        "explanation": "XLOOKUP separates the lookup vector from the return vector, allowing leftward lookups and immune to column insertion errors.",
+        "marks": 1
+      },
+      {
+        "id": "mcq-4",
+        "question": "Which Excel error code is returned when a dynamic array formula cannot output its full range because a non-empty cell is blocking it?",
+        "options": [
+          "#REF!",
+          "#SPILL!",
+          "#VALUE!",
+          "#N/A"
+        ],
+        "correctAnswer": "#SPILL!",
+        "explanation": "#SPILL! occurs when one or more cells in the anticipated dynamic array output range contain data or formatting.",
+        "marks": 1
+      },
+      {
+        "id": "mcq-5",
+        "question": "What does the formula =SUMIFS(D2:D100, A2:A100, \"North\", B2:B100, \">50000\") calculate?",
+        "options": [
+          "Sums column A if column D is North",
+          "Sums column D for rows where Region is North AND value in column B is greater than 50,000",
+          "Counts how many times North appears in column A",
+          "Calculates average revenue for North region"
+        ],
+        "correctAnswer": "Sums column D for rows where Region is North AND value in column B is greater than 50,000",
+        "explanation": "SUMIFS takes sum_range first (D2:D100) followed by criteria pairs (A2:A100 = 'North' AND B2:B100 > 50000).",
+        "marks": 1
+      },
+      {
+        "id": "mcq-6",
+        "question": "Which function allows an analyst to define and reuse custom named variables inside a single formula calculation to optimize speed?",
+        "options": [
+          "VLOOKUP",
+          "LET",
+          "INDEX",
+          "CONCATENATE"
+        ],
+        "correctAnswer": "LET",
+        "explanation": "LET() assigns names to calculation results, preventing repetitive redundant sub-calculations and improving workbook speed.",
+        "marks": 1
+      },
+      {
+        "id": "mcq-7",
+        "question": "Which tool in Excel should a Data Analyst use when they know the desired financial target output (e.g. $500,000 Profit) and need to find the exact single input variable value (e.g. Unit Sales)?",
+        "options": [
+          "Pivot Table",
+          "Goal Seek",
+          "Data Validation",
+          "Flash Fill"
+        ],
+        "correctAnswer": "Goal Seek",
+        "explanation": "Goal Seek is a What-If Analysis tool that calculates backwards to find the input value required to achieve a target result.",
+        "marks": 1
+      },
+      {
+        "id": "mcq-8",
+        "question": "In Power Query ETL, what transformation step converts a wide table with months in separate columns (Jan, Feb, Mar...) into a normalized vertical dataset?",
+        "options": [
+          "Group By",
+          "Unpivot Columns",
+          "Transpose Rows",
+          "Replace Errors"
+        ],
+        "correctAnswer": "Unpivot Columns",
+        "explanation": "Unpivot Columns collapses multiple horizontal attribute columns into attribute-value pairs, converting wide data to long database format.",
+        "marks": 1
+      },
+      {
+        "id": "mcq-9",
+        "question": "What keyboard shortcut instantly applies or removes AutoFilters from a continuous tabular dataset?",
+        "options": [
+          "Ctrl + Shift + L",
+          "Ctrl + Alt + V",
+          "Alt + F11",
+          "Ctrl + Shift + $"
+        ],
+        "correctAnswer": "Ctrl + Shift + L",
+        "explanation": "Ctrl + Shift + L toggles auto-filter dropdowns across header rows immediately.",
+        "marks": 1
+      },
+      {
+        "id": "mcq-10",
+        "question": "In a 2-way matrix lookup, which formula structure correctly retrieves the value at the intersection of a matched Row and matched Column?",
+        "options": [
+          "=VLOOKUP(Row, Table, HLOOKUP(Col, Table, 2))",
+          "=INDEX(TableRange, MATCH(RowVal, RowRange, 0), MATCH(ColVal, ColRange, 0))",
+          "=SUM(RowRange * ColRange)",
+          "=COUNTIFS(TableRange, RowVal, ColVal)"
+        ],
+        "correctAnswer": "=INDEX(TableRange, MATCH(RowVal, RowRange, 0), MATCH(ColVal, ColRange, 0))",
+        "explanation": "INDEX takes row number and column number from two separate MATCH functions to locate exact grid coordinates.",
+        "marks": 1
+      },
+      {
+        "id": "mcq-11",
+        "question": "What is the primary purpose of adding Application.ScreenUpdating = False at the beginning of an Excel VBA automation macro?",
+        "options": [
+          "Encrypts the workbook with a password",
+          "Suppresses UI redraws, dramatically speeding up macro execution",
+          "Converts all formulas into hardcoded values",
+          "Prevents users from closing Excel"
+        ],
+        "correctAnswer": "Suppresses UI redraws, dramatically speeding up macro execution",
+        "explanation": "Disabling ScreenUpdating stops Excel from repainting the display after each individual cell operation, boosting script speed significantly.",
+        "marks": 1
+      },
+      {
+        "id": "mcq-12",
+        "question": "Which modern Excel function generates a deduplicated list of unique entries directly from an array?",
+        "options": [
+          "=DISTINCT()",
+          "=UNIQUE()",
+          "=SINGLE()",
+          "=DEDUP()"
+        ],
+        "correctAnswer": "=UNIQUE()",
+        "explanation": "=UNIQUE(array, [by_col], [exactly_once]) outputs the unique distinct values from a list as a dynamic array.",
+        "marks": 1
+      },
+      {
+        "id": "mcq-13",
+        "question": "When creating a Pivot Table, why should an analyst create a Calculated Field for Profit Margin (=Profit/Revenue) instead of setting the summary of a pre-calculated Margin column to Average?",
+        "options": [
+          "Calculated fields calculate weighted margin over total sums, avoiding distorted simple arithmetic averages",
+          "Average function is not supported in Pivot Tables",
+          "Calculated fields run in Power BI only",
+          "It saves memory by deleting the source columns"
+        ],
+        "correctAnswer": "Calculated fields calculate weighted margin over total sums, avoiding distorted simple arithmetic averages",
+        "explanation": "Averaging pre-calculated percentage rows distorts results because small and large transactions get equal weight. Calculated fields compute Sum(Profit) / Sum(Revenue).",
+        "marks": 1
+      },
+      {
+        "id": "mcq-14",
+        "question": "Which formula cleans extra whitespace from text string in cell A2 while simultaneously capitalizing the first letter of every word?",
+        "options": [
+          "=UPPER(TRIM(A2))",
+          "=PROPER(TRIM(A2))",
+          "=LOWER(CLEAN(A2))",
+          "=TEXTJOIN(\" \", TRUE, A2)"
+        ],
+        "correctAnswer": "=PROPER(TRIM(A2))",
+        "explanation": "TRIM removes extra leading/trailing and double spaces, and PROPER converts the string to Proper/Title Case.",
+        "marks": 1
+      },
+      {
+        "id": "mcq-15",
+        "question": "What will the formula =IFERROR(100/0, \"Calculation Error\") return?",
+        "options": [
+          "#DIV/0!",
+          "Calculation Error",
+          "0",
+          "100"
+        ],
+        "correctAnswer": "Calculation Error",
+        "explanation": "100/0 triggers a #DIV/0! error, which IFERROR catches and replaces with the specified fallback string.",
+        "marks": 1
+      },
+      {
+        "id": "mcq-16",
+        "question": "What character is used in Excel 365 to reference an entire dynamic spilled array starting at cell E2?",
+        "options": [
+          "E2*",
+          "E2#",
+          "E2@",
+          "E2!"
+        ],
+        "correctAnswer": "E2#",
+        "explanation": "The spilled range operator '#' placed after a cell coordinate references all spilled array cells originating from that anchor.",
+        "marks": 1
+      },
+      {
+        "id": "mcq-17",
+        "question": "Which function combines values from multiple cells or ranges using a specified delimiter while ignoring empty cells?",
+        "options": [
+          "CONCAT()",
+          "TEXTJOIN()",
+          "MERGE()",
+          "JOIN()"
+        ],
+        "correctAnswer": "TEXTJOIN()",
+        "explanation": "TEXTJOIN(delimiter, ignore_empty, text1, [text2], ...) joins arrays with delimiters and skips blank items.",
+        "marks": 1
+      },
+      {
+        "id": "mcq-18",
+        "question": "In financial modeling, which function calculates the net present value of an investment using non-periodic (irregular) cash flow dates?",
+        "options": [
+          "NPV",
+          "XNPV",
+          "PMT",
+          "FV"
+        ],
+        "correctAnswer": "XNPV",
+        "explanation": "XNPV calculates the net present value for cash flows that occur on specific irregular calendar dates, unlike standard NPV which assumes equal annual periods.",
+        "marks": 1
+      },
+      {
+        "id": "mcq-19",
+        "question": "What occurs when you convert a raw data range into an Official Excel Table using Ctrl + T?",
+        "options": [
+          "Calculated column formulas auto-propagate to all rows and structured references ([@Sales]) become active",
+          "All formulas are permanently converted to text",
+          "VBA macros are automatically disabled",
+          "The file is locked from external edits"
+        ],
+        "correctAnswer": "Calculated column formulas auto-propagate to all rows and structured references ([@Sales]) become active",
+        "explanation": "Excel Tables provide structured references, auto-expanding ranges for Pivot Tables, and automated formula propagation.",
+        "marks": 1
+      },
+      {
+        "id": "mcq-20",
+        "question": "Which Excel feature creates mini-trendline charts embedded directly within a single table cell to show quarterly trends?",
+        "options": [
+          "Sparklines",
+          "Pivot Charts",
+          "Camera Tool",
+          "3D Maps"
+        ],
+        "correctAnswer": "Sparklines",
+        "explanation": "Sparklines are tiny in-cell line, column, or win/loss charts designed for compact dashboard scorecards.",
+        "marks": 1
+      }
+    ],
+    "practicals": [
+      {
+        "id": "prac-1",
+        "title": "Problem Statement 1: High-Volume Sales & Dynamic Lookup Pipeline",
+        "totalMarks": 10,
+        "scenario": "You are a Senior Data Analyst at RetailCorp working on an unlinked transactional dataset. In the Master Product Catalog located in sheet 'Catalog' (Range A2:D100), Column A contains 'Product_Name', Column B contains 'SKU_Code', Column C contains 'Category', and Column D contains 'Unit_Price'. In your Orders sheet at row 5, the customer ordered item has SKU_Code in Cell B5.",
+        "tablePreview": {
+          "headers": [
+            "A: Order_ID",
+            "B: SKU_Code (Input)",
+            "C: Fetched Product Name",
+            "D: Fetched Unit Price",
+            "E: Quantity",
+            "F: Total Revenue"
+          ],
+          "rows": [
+            [
+              "ORD-101",
+              "SKU-PRO-99",
+              "[Task 1.1]",
+              "[Task 1.2]",
+              "4",
+              "[Task 1.3]"
+            ],
+            [
+              "ORD-102",
+              "SKU-PRO-42",
+              "-",
+              "-",
+              "2",
+              "-"
+            ]
+          ]
+        },
+        "steps": [
+          {
+            "stepId": "p1-s1",
+            "marks": 4,
+            "instruction": "Write the modern XLOOKUP formula for Cell C5 to fetch the 'Product_Name' (Catalog Column A2:A100) using SKU_Code in Cell B5 (Catalog Column B2:B100). If the SKU does not exist, return 'Invalid SKU'.",
+            "acceptedFormulas": [
+              "=XLOOKUP(B5, Catalog!B2:B100, Catalog!A2:A100, \"Invalid SKU\")",
+              "=XLOOKUP(B5,Catalog!B2:B100,Catalog!A2:A100,\"Invalid SKU\")",
+              "=XLOOKUP(B5, Catalog!$B$2:$B$100, Catalog!$A$2:$A$100, \"Invalid SKU\")",
+              "=XLOOKUP(B5,Catalog!$B$2:$B$100,Catalog!$A$2:$A$100,\"Invalid SKU\")",
+              "=IFERROR(INDEX(Catalog!A2:A100, MATCH(B5, Catalog!B2:B100, 0)), \"Invalid SKU\")",
+              "=IFERROR(INDEX(Catalog!$A$2:$A$100, MATCH(B5, Catalog!$B$2:$B$100, 0)), \"Invalid SKU\")"
+            ],
+            "requiredKeywords": [
+              "XLOOKUP",
+              "B5",
+              "Catalog",
+              "Invalid SKU"
+            ]
+          },
+          {
+            "stepId": "p1-s2",
+            "marks": 3,
+            "instruction": "Write the XLOOKUP formula for Cell D5 to fetch the 'Unit_Price' (Catalog Column D2:D100) using SKU_Code in Cell B5. If missing, return 0.",
+            "acceptedFormulas": [
+              "=XLOOKUP(B5, Catalog!B2:B100, Catalog!D2:D100, 0)",
+              "=XLOOKUP(B5,Catalog!B2:B100,Catalog!D2:D100,0)",
+              "=XLOOKUP(B5, Catalog!$B$2:$B$100, Catalog!$D$2:$D$100, 0)",
+              "=XLOOKUP(B5,Catalog!$B$2:$B$100,Catalog!$D$2:$D$100,0)",
+              "=IFERROR(INDEX(Catalog!D2:D100, MATCH(B5, Catalog!B2:B100, 0)), 0)"
+            ],
+            "requiredKeywords": [
+              "XLOOKUP",
+              "B5",
+              "Catalog",
+              "D2:D100"
+            ]
+          },
+          {
+            "stepId": "p1-s3",
+            "marks": 3,
+            "instruction": "Write the calculation formula for Total Revenue in Cell F5 multiplying Unit_Price (D5) by Quantity (E5), applying a 10% discount if Quantity is 4 or greater, otherwise no discount.",
+            "acceptedFormulas": [
+              "=IF(E5>=4, (D5*E5)*0.9, D5*E5)",
+              "=IF(E5>=4,(D5*E5)*0.9,D5*E5)",
+              "=IF(E5>=4, D5*E5*0.9, D5*E5)",
+              "=D5*E5*IF(E5>=4, 0.9, 1)",
+              "=IF(E5>=4, (D5*E5)-(D5*E5*0.1), D5*E5)"
+            ],
+            "requiredKeywords": [
+              "IF",
+              "E5",
+              "D5",
+              "0.9"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "prac-2",
+        "title": "Problem Statement 2: Multi-Criteria KPI Aggregations & Commission Engine",
+        "totalMarks": 10,
+        "scenario": "You are auditing regional performance in a sales database (Range A2:E500). Column A is 'Region', Column B is 'SalesRep', Column C is 'ClientType' (e.g. Enterprise, SMB), Column D is 'DealsClosed', and Column E is 'Revenue'.",
+        "tablePreview": {
+          "headers": [
+            "A: Region",
+            "B: SalesRep",
+            "C: ClientType",
+            "D: DealsClosed",
+            "E: Revenue ($)"
+          ],
+          "rows": [
+            [
+              "North",
+              "Aarav Sharma",
+              "Enterprise",
+              "14",
+              "180,000"
+            ],
+            [
+              "West",
+              "Priya Nair",
+              "SMB",
+              "22",
+              "95,000"
+            ],
+            [
+              "North",
+              "Rohan Gupta",
+              "Enterprise",
+              "8",
+              "120,000"
+            ],
+            [
+              "South",
+              "Ananya Sen",
+              "Retail",
+              "35",
+              "65,000"
+            ]
+          ]
+        },
+        "steps": [
+          {
+            "stepId": "p2-s1",
+            "marks": 5,
+            "instruction": "Write the SUMIFS formula to compute the total Revenue (Column E2:E500) generated ONLY by 'North' Region (Column A2:A500) from 'Enterprise' ClientType (Column C2:C500).",
+            "acceptedFormulas": [
+              "=SUMIFS(E2:E500, A2:A500, \"North\", C2:C500, \"Enterprise\")",
+              "=SUMIFS(E2:E500,A2:A500,\"North\",C2:C500,\"Enterprise\")",
+              "=SUMIFS($E$2:$E$500, $A$2:$A$500, \"North\", $C$2:$C$500, \"Enterprise\")",
+              "=SUMIFS(E:E, A:A, \"North\", C:C, \"Enterprise\")"
+            ],
+            "requiredKeywords": [
+              "SUMIFS",
+              "E2:E500",
+              "North",
+              "Enterprise"
+            ]
+          },
+          {
+            "stepId": "p2-s2",
+            "marks": 5,
+            "instruction": "Write a dynamic IFS formula in Cell F2 to calculate SalesRep Incentive tier: If Revenue (E2) >= 150000 and DealsClosed (D2) >= 10 return 'Platinum'; if Revenue (E2) >= 90000 return 'Gold'; otherwise return 'Standard'.",
+            "acceptedFormulas": [
+              "=IFS(AND(E2>=150000, D2>=10), \"Platinum\", E2>=90000, \"Gold\", TRUE, \"Standard\")",
+              "=IFS(AND(E2>=150000,D2>=10),\"Platinum\",E2>=90000,\"Gold\",TRUE,\"Standard\")",
+              "=IF(AND(E2>=150000, D2>=10), \"Platinum\", IF(E2>=90000, \"Gold\", \"Standard\"))",
+              "=IF(AND(E2>=150000,D2>=10),\"Platinum\",IF(E2>=90000,\"Gold\",\"Standard\"))"
+            ],
+            "requiredKeywords": [
+              "AND",
+              "E2",
+              "Platinum",
+              "Gold",
+              "Standard"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "prac-3",
+        "title": "Problem Statement 3: Dynamic Array Filter & Clean Data Pipeline",
+        "totalMarks": 10,
+        "scenario": "You have a messy customer churn log in Table 'RawData' (Range A2:D300). Column A is Customer_ID, Column B is Status (e.g. 'Churned', 'Active'), Column C is Monthly_Spend, Column D is Cleaned_City.",
+        "tablePreview": {
+          "headers": [
+            "A: Customer_ID",
+            "B: Status",
+            "C: Monthly_Spend ($)",
+            "D: Cleaned_City"
+          ],
+          "rows": [
+            [
+              "CUST-001",
+              "Churned",
+              "450",
+              "Mumbai"
+            ],
+            [
+              "CUST-002",
+              "Active",
+              "1200",
+              "Delhi"
+            ],
+            [
+              "CUST-003",
+              "Churned",
+              "890",
+              "Bengaluru"
+            ],
+            [
+              "CUST-004",
+              "Churned",
+              "320",
+              "Mumbai"
+            ]
+          ]
+        },
+        "steps": [
+          {
+            "stepId": "p3-s1",
+            "marks": 5,
+            "instruction": "Write a dynamic FILTER formula to extract all rows (A2:D300) where Status (B2:B300) is 'Churned' AND Monthly_Spend (C2:C300) is greater than 400. If no rows match, return 'No High Value Churn'.",
+            "acceptedFormulas": [
+              "=FILTER(A2:D300, (B2:B300=\"Churned\") * (C2:C300>400), \"No High Value Churn\")",
+              "=FILTER(A2:D300,(B2:B300=\"Churned\")*(C2:C300>400),\"No High Value Churn\")",
+              "=FILTER($A$2:$D$300, ($B$2:$B$300=\"Churned\") * ($C$2:$C$300>400), \"No High Value Churn\")",
+              "=FILTER(A2:D300, (B2:B300=\"Churned\") * (C2:C300>400), \"No High Value Churn\")"
+            ],
+            "requiredKeywords": [
+              "FILTER",
+              "A2:D300",
+              "Churned",
+              "400"
+            ]
+          },
+          {
+            "stepId": "p3-s2",
+            "marks": 5,
+            "instruction": "Write the formula to wrap the dynamic filtered list above so that it is automatically SORTED by Monthly_Spend (Column index 3 in the array) in Descending order (-1).",
+            "acceptedFormulas": [
+              "=SORT(FILTER(A2:D300, (B2:B300=\"Churned\") * (C2:C300>400), \"No High Value Churn\"), 3, -1)",
+              "=SORT(FILTER(A2:D300,(B2:B300=\"Churned\")*(C2:C300>400),\"No High Value Churn\"),3,-1)",
+              "=SORT(FILTER($A$2:$D$300, ($B$2:$B$300=\"Churned\") * ($C$2:$C$300>400), \"No High Value Churn\"), 3, -1)"
+            ],
+            "requiredKeywords": [
+              "SORT",
+              "FILTER",
+              "3",
+              "-1"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "powerBiSessions": [
+    {
+      "id": "pbi-1",
+      "title": "Masterclass: Connecting Excel Data Models to Power BI Desktop",
+      "instructor": "Ujesh Mishra",
+      "date": "2026-09-20T11:00:00.000Z",
+      "duration": "90 mins",
+      "level": "Intermediate",
+      "meetLink": "https://meet.google.com/pbi-excel-analytics",
+      "datasetDownload": "Global_Superstore_Cleaned_2026.pbix",
+      "description": "Learn how to import cleaned Excel tables into Power BI Desktop, establish 1-to-Many star schema relationships, and create executive DAX KPI cards.",
+      "agenda": [
+        "1. Setting up Power BI Desktop & Direct Ingestion from Excel .xlsx files",
+        "2. Star Schema Modeling: Fact Tables vs Dimension Tables",
+        "3. Writing Core DAX: CALCULATE, RELATED, DIVIDE, and Time Intelligence",
+        "4. Building C-Suite Matrix & Interactive Drill-through Visuals"
+      ]
+    },
+    {
+      "id": "pbi-2",
+      "title": "Advanced DAX: Time Intelligence & Cohort Retention Analysis",
+      "instructor": "Ujesh Mishra",
+      "date": "2026-09-27T15:30:00.000Z",
+      "duration": "120 mins",
+      "level": "Advanced",
+      "meetLink": "https://meet.google.com/pbi-dax-mastery",
+      "datasetDownload": "SaaS_Recurring_Revenue_Cohort.pbix",
+      "description": "Deep-dive into DAX Time Intelligence functions (SAMEPERIODLASTYEAR, DATESYTD, TOTALMTD) and build cohort heatmaps.",
+      "agenda": [
+        "1. Creating Custom Date Tables with DAX CalendarAuto()",
+        "2. YoY and MoM Growth rate calculations with CALCULATE filters",
+        "3. Building dynamic Slicers and Custom Tooltips in Power BI",
+        "4. Publishing to Power BI Service & Automated Schedule Refresh"
+      ]
+    }
+  ],
+  "submissions": [
+    {
+      "id": "sub-1789297124554",
+      "studentName": "Aarav Mehta",
+      "studentEmail": "aarav.mehta@analystcorp.com",
+      "submittedAt": "2026-09-13T10:58:44.554Z",
+      "mcqScore": 5,
+      "practicalScore": 10,
+      "totalScore": 15,
+      "maxScore": 50,
+      "percentage": 30,
+      "performanceGrade": "Needs Practice",
+      "performanceBadge": "Novice Spreadsheet User",
+      "mcqBreakdown": [
+        {
+          "id": "mcq-1",
+          "question": "In a corporate sales sheet, which formula locks both the Column and the Row when dragged across cells?",
+          "userAnswer": "$A$1",
+          "correctAnswer": "$A$1",
+          "isCorrect": true,
+          "explanation": "$A$1 represents absolute referencing where both column A and row 1 are fixed with dollar signs.",
+          "marksAwarded": 1,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-2",
+          "question": "A Data Analyst receives a CSV file where VLOOKUP returns #N/A for customer names that visibly look identical. What is the most probable cause?",
+          "userAnswer": "There are invisible trailing non-breaking spaces (CHAR 160 or ASCII 32)",
+          "correctAnswer": "There are invisible trailing non-breaking spaces (CHAR 160 or ASCII 32)",
+          "isCorrect": true,
+          "explanation": "Web-scraped and exported CSV data often contains invisible trailing spaces or non-breaking spaces (CHAR 160) which cause exact string matches to fail.",
+          "marksAwarded": 1,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-3",
+          "question": "What is the key structural advantage of XLOOKUP over traditional VLOOKUP?",
+          "userAnswer": "XLOOKUP can perform lookups to the left without altering column order",
+          "correctAnswer": "XLOOKUP can perform lookups to the left without altering column order",
+          "isCorrect": true,
+          "explanation": "XLOOKUP separates the lookup vector from the return vector, allowing leftward lookups and immune to column insertion errors.",
+          "marksAwarded": 1,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-4",
+          "question": "Which Excel error code is returned when a dynamic array formula cannot output its full range because a non-empty cell is blocking it?",
+          "userAnswer": "#SPILL!",
+          "correctAnswer": "#SPILL!",
+          "isCorrect": true,
+          "explanation": "#SPILL! occurs when one or more cells in the anticipated dynamic array output range contain data or formatting.",
+          "marksAwarded": 1,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-5",
+          "question": "What does the formula =SUMIFS(D2:D100, A2:A100, \"North\", B2:B100, \">50000\") calculate?",
+          "userAnswer": "Sums column D for rows where Region is North AND value in column B is greater than 50,000",
+          "correctAnswer": "Sums column D for rows where Region is North AND value in column B is greater than 50,000",
+          "isCorrect": true,
+          "explanation": "SUMIFS takes sum_range first (D2:D100) followed by criteria pairs (A2:A100 = 'North' AND B2:B100 > 50000).",
+          "marksAwarded": 1,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-6",
+          "question": "Which function allows an analyst to define and reuse custom named variables inside a single formula calculation to optimize speed?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "LET",
+          "isCorrect": false,
+          "explanation": "LET() assigns names to calculation results, preventing repetitive redundant sub-calculations and improving workbook speed.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-7",
+          "question": "Which tool in Excel should a Data Analyst use when they know the desired financial target output (e.g. $500,000 Profit) and need to find the exact single input variable value (e.g. Unit Sales)?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "Goal Seek",
+          "isCorrect": false,
+          "explanation": "Goal Seek is a What-If Analysis tool that calculates backwards to find the input value required to achieve a target result.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-8",
+          "question": "In Power Query ETL, what transformation step converts a wide table with months in separate columns (Jan, Feb, Mar...) into a normalized vertical dataset?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "Unpivot Columns",
+          "isCorrect": false,
+          "explanation": "Unpivot Columns collapses multiple horizontal attribute columns into attribute-value pairs, converting wide data to long database format.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-9",
+          "question": "What keyboard shortcut instantly applies or removes AutoFilters from a continuous tabular dataset?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "Ctrl + Shift + L",
+          "isCorrect": false,
+          "explanation": "Ctrl + Shift + L toggles auto-filter dropdowns across header rows immediately.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-10",
+          "question": "In a 2-way matrix lookup, which formula structure correctly retrieves the value at the intersection of a matched Row and matched Column?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "=INDEX(TableRange, MATCH(RowVal, RowRange, 0), MATCH(ColVal, ColRange, 0))",
+          "isCorrect": false,
+          "explanation": "INDEX takes row number and column number from two separate MATCH functions to locate exact grid coordinates.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-11",
+          "question": "What is the primary purpose of adding Application.ScreenUpdating = False at the beginning of an Excel VBA automation macro?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "Suppresses UI redraws, dramatically speeding up macro execution",
+          "isCorrect": false,
+          "explanation": "Disabling ScreenUpdating stops Excel from repainting the display after each individual cell operation, boosting script speed significantly.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-12",
+          "question": "Which modern Excel function generates a deduplicated list of unique entries directly from an array?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "=UNIQUE()",
+          "isCorrect": false,
+          "explanation": "=UNIQUE(array, [by_col], [exactly_once]) outputs the unique distinct values from a list as a dynamic array.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-13",
+          "question": "When creating a Pivot Table, why should an analyst create a Calculated Field for Profit Margin (=Profit/Revenue) instead of setting the summary of a pre-calculated Margin column to Average?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "Calculated fields calculate weighted margin over total sums, avoiding distorted simple arithmetic averages",
+          "isCorrect": false,
+          "explanation": "Averaging pre-calculated percentage rows distorts results because small and large transactions get equal weight. Calculated fields compute Sum(Profit) / Sum(Revenue).",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-14",
+          "question": "Which formula cleans extra whitespace from text string in cell A2 while simultaneously capitalizing the first letter of every word?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "=PROPER(TRIM(A2))",
+          "isCorrect": false,
+          "explanation": "TRIM removes extra leading/trailing and double spaces, and PROPER converts the string to Proper/Title Case.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-15",
+          "question": "What will the formula =IFERROR(100/0, \"Calculation Error\") return?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "Calculation Error",
+          "isCorrect": false,
+          "explanation": "100/0 triggers a #DIV/0! error, which IFERROR catches and replaces with the specified fallback string.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-16",
+          "question": "What character is used in Excel 365 to reference an entire dynamic spilled array starting at cell E2?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "E2#",
+          "isCorrect": false,
+          "explanation": "The spilled range operator '#' placed after a cell coordinate references all spilled array cells originating from that anchor.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-17",
+          "question": "Which function combines values from multiple cells or ranges using a specified delimiter while ignoring empty cells?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "TEXTJOIN()",
+          "isCorrect": false,
+          "explanation": "TEXTJOIN(delimiter, ignore_empty, text1, [text2], ...) joins arrays with delimiters and skips blank items.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-18",
+          "question": "In financial modeling, which function calculates the net present value of an investment using non-periodic (irregular) cash flow dates?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "XNPV",
+          "isCorrect": false,
+          "explanation": "XNPV calculates the net present value for cash flows that occur on specific irregular calendar dates, unlike standard NPV which assumes equal annual periods.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-19",
+          "question": "What occurs when you convert a raw data range into an Official Excel Table using Ctrl + T?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "Calculated column formulas auto-propagate to all rows and structured references ([@Sales]) become active",
+          "isCorrect": false,
+          "explanation": "Excel Tables provide structured references, auto-expanding ranges for Pivot Tables, and automated formula propagation.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-20",
+          "question": "Which Excel feature creates mini-trendline charts embedded directly within a single table cell to show quarterly trends?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "Sparklines",
+          "isCorrect": false,
+          "explanation": "Sparklines are tiny in-cell line, column, or win/loss charts designed for compact dashboard scorecards.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        }
+      ],
+      "practicalBreakdown": [
+        {
+          "problemId": "prac-1",
+          "title": "Problem Statement 1: High-Volume Sales & Dynamic Lookup Pipeline",
+          "scenario": "You are a Senior Data Analyst at RetailCorp working on an unlinked transactional dataset. In the Master Product Catalog located in sheet 'Catalog' (Range A2:D100), Column A contains 'Product_Name', Column B contains 'SKU_Code', Column C contains 'Category', and Column D contains 'Unit_Price'. In your Orders sheet at row 5, the customer ordered item has SKU_Code in Cell B5.",
+          "problemScore": 10,
+          "totalMarks": 10,
+          "stepBreakdown": [
+            {
+              "stepId": "p1-s1",
+              "instruction": "Write the modern XLOOKUP formula for Cell C5 to fetch the 'Product_Name' (Catalog Column A2:A100) using SKU_Code in Cell B5 (Catalog Column B2:B100). If the SKU does not exist, return 'Invalid SKU'.",
+              "userFormula": "=XLOOKUP(B5, Catalog!B2:B100, Catalog!A2:A100, \"Invalid SKU\")",
+              "expectedFormula": "=XLOOKUP(B5, Catalog!B2:B100, Catalog!A2:A100, \"Invalid SKU\")",
+              "passed": true,
+              "marksAwarded": 4,
+              "totalMarks": 4,
+              "feedback": "✅ Perfect syntax and cell referencing!"
+            },
+            {
+              "stepId": "p1-s2",
+              "instruction": "Write the XLOOKUP formula for Cell D5 to fetch the 'Unit_Price' (Catalog Column D2:D100) using SKU_Code in Cell B5. If missing, return 0.",
+              "userFormula": "=XLOOKUP(B5, Catalog!B2:B100, Catalog!D2:D100, 0)",
+              "expectedFormula": "=XLOOKUP(B5, Catalog!B2:B100, Catalog!D2:D100, 0)",
+              "passed": true,
+              "marksAwarded": 3,
+              "totalMarks": 3,
+              "feedback": "✅ Perfect syntax and cell referencing!"
+            },
+            {
+              "stepId": "p1-s3",
+              "instruction": "Write the calculation formula for Total Revenue in Cell F5 multiplying Unit_Price (D5) by Quantity (E5), applying a 10% discount if Quantity is 4 or greater, otherwise no discount.",
+              "userFormula": "=IF(E5>=4, (D5*E5)*0.9, D5*E5)",
+              "expectedFormula": "=IF(E5>=4, (D5*E5)*0.9, D5*E5)",
+              "passed": true,
+              "marksAwarded": 3,
+              "totalMarks": 3,
+              "feedback": "✅ Perfect syntax and cell referencing!"
+            }
+          ]
+        },
+        {
+          "problemId": "prac-2",
+          "title": "Problem Statement 2: Multi-Criteria KPI Aggregations & Commission Engine",
+          "scenario": "You are auditing regional performance in a sales database (Range A2:E500). Column A is 'Region', Column B is 'SalesRep', Column C is 'ClientType' (e.g. Enterprise, SMB), Column D is 'DealsClosed', and Column E is 'Revenue'.",
+          "problemScore": 0,
+          "totalMarks": 10,
+          "stepBreakdown": [
+            {
+              "stepId": "p2-s1",
+              "instruction": "Write the SUMIFS formula to compute the total Revenue (Column E2:E500) generated ONLY by 'North' Region (Column A2:A500) from 'Enterprise' ClientType (Column C2:C500).",
+              "userFormula": "No formula entered",
+              "expectedFormula": "=SUMIFS(E2:E500, A2:A500, \"North\", C2:C500, \"Enterprise\")",
+              "passed": false,
+              "marksAwarded": 0,
+              "totalMarks": 5,
+              "feedback": "❌ Incorrect. Recommended Data Analyst approach: =SUMIFS(E2:E500, A2:A500, \"North\", C2:C500, \"Enterprise\")"
+            },
+            {
+              "stepId": "p2-s2",
+              "instruction": "Write a dynamic IFS formula in Cell F2 to calculate SalesRep Incentive tier: If Revenue (E2) >= 150000 and DealsClosed (D2) >= 10 return 'Platinum'; if Revenue (E2) >= 90000 return 'Gold'; otherwise return 'Standard'.",
+              "userFormula": "No formula entered",
+              "expectedFormula": "=IFS(AND(E2>=150000, D2>=10), \"Platinum\", E2>=90000, \"Gold\", TRUE, \"Standard\")",
+              "passed": false,
+              "marksAwarded": 0,
+              "totalMarks": 5,
+              "feedback": "❌ Incorrect. Recommended Data Analyst approach: =IFS(AND(E2>=150000, D2>=10), \"Platinum\", E2>=90000, \"Gold\", TRUE, \"Standard\")"
+            }
+          ]
+        },
+        {
+          "problemId": "prac-3",
+          "title": "Problem Statement 3: Dynamic Array Filter & Clean Data Pipeline",
+          "scenario": "You have a messy customer churn log in Table 'RawData' (Range A2:D300). Column A is Customer_ID, Column B is Status (e.g. 'Churned', 'Active'), Column C is Monthly_Spend, Column D is Cleaned_City.",
+          "problemScore": 0,
+          "totalMarks": 10,
+          "stepBreakdown": [
+            {
+              "stepId": "p3-s1",
+              "instruction": "Write a dynamic FILTER formula to extract all rows (A2:D300) where Status (B2:B300) is 'Churned' AND Monthly_Spend (C2:C300) is greater than 400. If no rows match, return 'No High Value Churn'.",
+              "userFormula": "No formula entered",
+              "expectedFormula": "=FILTER(A2:D300, (B2:B300=\"Churned\") * (C2:C300>400), \"No High Value Churn\")",
+              "passed": false,
+              "marksAwarded": 0,
+              "totalMarks": 5,
+              "feedback": "❌ Incorrect. Recommended Data Analyst approach: =FILTER(A2:D300, (B2:B300=\"Churned\") * (C2:C300>400), \"No High Value Churn\")"
+            },
+            {
+              "stepId": "p3-s2",
+              "instruction": "Write the formula to wrap the dynamic filtered list above so that it is automatically SORTED by Monthly_Spend (Column index 3 in the array) in Descending order (-1).",
+              "userFormula": "No formula entered",
+              "expectedFormula": "=SORT(FILTER(A2:D300, (B2:B300=\"Churned\") * (C2:C300>400), \"No High Value Churn\"), 3, -1)",
+              "passed": false,
+              "marksAwarded": 0,
+              "totalMarks": 5,
+              "feedback": "❌ Incorrect. Recommended Data Analyst approach: =SORT(FILTER(A2:D300, (B2:B300=\"Churned\") * (C2:C300>400), \"No High Value Churn\"), 3, -1)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sub-1789296374507",
+      "studentName": "Aarav Mehta",
+      "studentEmail": "aarav.mehta@analystcorp.com",
+      "submittedAt": "2026-09-13T10:46:14.507Z",
+      "mcqScore": 5,
+      "practicalScore": 10,
+      "totalScore": 15,
+      "maxScore": 50,
+      "percentage": 30,
+      "performanceGrade": "Needs Practice",
+      "performanceBadge": "Novice Spreadsheet User",
+      "mcqBreakdown": [
+        {
+          "id": "mcq-1",
+          "question": "In a corporate sales sheet, which formula locks both the Column and the Row when dragged across cells?",
+          "userAnswer": "$A$1",
+          "correctAnswer": "$A$1",
+          "isCorrect": true,
+          "explanation": "$A$1 represents absolute referencing where both column A and row 1 are fixed with dollar signs.",
+          "marksAwarded": 1,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-2",
+          "question": "A Data Analyst receives a CSV file where VLOOKUP returns #N/A for customer names that visibly look identical. What is the most probable cause?",
+          "userAnswer": "There are invisible trailing non-breaking spaces (CHAR 160 or ASCII 32)",
+          "correctAnswer": "There are invisible trailing non-breaking spaces (CHAR 160 or ASCII 32)",
+          "isCorrect": true,
+          "explanation": "Web-scraped and exported CSV data often contains invisible trailing spaces or non-breaking spaces (CHAR 160) which cause exact string matches to fail.",
+          "marksAwarded": 1,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-3",
+          "question": "What is the key structural advantage of XLOOKUP over traditional VLOOKUP?",
+          "userAnswer": "XLOOKUP can perform lookups to the left without altering column order",
+          "correctAnswer": "XLOOKUP can perform lookups to the left without altering column order",
+          "isCorrect": true,
+          "explanation": "XLOOKUP separates the lookup vector from the return vector, allowing leftward lookups and immune to column insertion errors.",
+          "marksAwarded": 1,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-4",
+          "question": "Which Excel error code is returned when a dynamic array formula cannot output its full range because a non-empty cell is blocking it?",
+          "userAnswer": "#SPILL!",
+          "correctAnswer": "#SPILL!",
+          "isCorrect": true,
+          "explanation": "#SPILL! occurs when one or more cells in the anticipated dynamic array output range contain data or formatting.",
+          "marksAwarded": 1,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-5",
+          "question": "What does the formula =SUMIFS(D2:D100, A2:A100, \"North\", B2:B100, \">50000\") calculate?",
+          "userAnswer": "Sums column D for rows where Region is North AND value in column B is greater than 50,000",
+          "correctAnswer": "Sums column D for rows where Region is North AND value in column B is greater than 50,000",
+          "isCorrect": true,
+          "explanation": "SUMIFS takes sum_range first (D2:D100) followed by criteria pairs (A2:A100 = 'North' AND B2:B100 > 50000).",
+          "marksAwarded": 1,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-6",
+          "question": "Which function allows an analyst to define and reuse custom named variables inside a single formula calculation to optimize speed?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "LET",
+          "isCorrect": false,
+          "explanation": "LET() assigns names to calculation results, preventing repetitive redundant sub-calculations and improving workbook speed.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-7",
+          "question": "Which tool in Excel should a Data Analyst use when they know the desired financial target output (e.g. $500,000 Profit) and need to find the exact single input variable value (e.g. Unit Sales)?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "Goal Seek",
+          "isCorrect": false,
+          "explanation": "Goal Seek is a What-If Analysis tool that calculates backwards to find the input value required to achieve a target result.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-8",
+          "question": "In Power Query ETL, what transformation step converts a wide table with months in separate columns (Jan, Feb, Mar...) into a normalized vertical dataset?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "Unpivot Columns",
+          "isCorrect": false,
+          "explanation": "Unpivot Columns collapses multiple horizontal attribute columns into attribute-value pairs, converting wide data to long database format.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-9",
+          "question": "What keyboard shortcut instantly applies or removes AutoFilters from a continuous tabular dataset?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "Ctrl + Shift + L",
+          "isCorrect": false,
+          "explanation": "Ctrl + Shift + L toggles auto-filter dropdowns across header rows immediately.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-10",
+          "question": "In a 2-way matrix lookup, which formula structure correctly retrieves the value at the intersection of a matched Row and matched Column?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "=INDEX(TableRange, MATCH(RowVal, RowRange, 0), MATCH(ColVal, ColRange, 0))",
+          "isCorrect": false,
+          "explanation": "INDEX takes row number and column number from two separate MATCH functions to locate exact grid coordinates.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-11",
+          "question": "What is the primary purpose of adding Application.ScreenUpdating = False at the beginning of an Excel VBA automation macro?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "Suppresses UI redraws, dramatically speeding up macro execution",
+          "isCorrect": false,
+          "explanation": "Disabling ScreenUpdating stops Excel from repainting the display after each individual cell operation, boosting script speed significantly.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-12",
+          "question": "Which modern Excel function generates a deduplicated list of unique entries directly from an array?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "=UNIQUE()",
+          "isCorrect": false,
+          "explanation": "=UNIQUE(array, [by_col], [exactly_once]) outputs the unique distinct values from a list as a dynamic array.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-13",
+          "question": "When creating a Pivot Table, why should an analyst create a Calculated Field for Profit Margin (=Profit/Revenue) instead of setting the summary of a pre-calculated Margin column to Average?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "Calculated fields calculate weighted margin over total sums, avoiding distorted simple arithmetic averages",
+          "isCorrect": false,
+          "explanation": "Averaging pre-calculated percentage rows distorts results because small and large transactions get equal weight. Calculated fields compute Sum(Profit) / Sum(Revenue).",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-14",
+          "question": "Which formula cleans extra whitespace from text string in cell A2 while simultaneously capitalizing the first letter of every word?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "=PROPER(TRIM(A2))",
+          "isCorrect": false,
+          "explanation": "TRIM removes extra leading/trailing and double spaces, and PROPER converts the string to Proper/Title Case.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-15",
+          "question": "What will the formula =IFERROR(100/0, \"Calculation Error\") return?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "Calculation Error",
+          "isCorrect": false,
+          "explanation": "100/0 triggers a #DIV/0! error, which IFERROR catches and replaces with the specified fallback string.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-16",
+          "question": "What character is used in Excel 365 to reference an entire dynamic spilled array starting at cell E2?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "E2#",
+          "isCorrect": false,
+          "explanation": "The spilled range operator '#' placed after a cell coordinate references all spilled array cells originating from that anchor.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-17",
+          "question": "Which function combines values from multiple cells or ranges using a specified delimiter while ignoring empty cells?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "TEXTJOIN()",
+          "isCorrect": false,
+          "explanation": "TEXTJOIN(delimiter, ignore_empty, text1, [text2], ...) joins arrays with delimiters and skips blank items.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-18",
+          "question": "In financial modeling, which function calculates the net present value of an investment using non-periodic (irregular) cash flow dates?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "XNPV",
+          "isCorrect": false,
+          "explanation": "XNPV calculates the net present value for cash flows that occur on specific irregular calendar dates, unlike standard NPV which assumes equal annual periods.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-19",
+          "question": "What occurs when you convert a raw data range into an Official Excel Table using Ctrl + T?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "Calculated column formulas auto-propagate to all rows and structured references ([@Sales]) become active",
+          "isCorrect": false,
+          "explanation": "Excel Tables provide structured references, auto-expanding ranges for Pivot Tables, and automated formula propagation.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        },
+        {
+          "id": "mcq-20",
+          "question": "Which Excel feature creates mini-trendline charts embedded directly within a single table cell to show quarterly trends?",
+          "userAnswer": "Not Answered",
+          "correctAnswer": "Sparklines",
+          "isCorrect": false,
+          "explanation": "Sparklines are tiny in-cell line, column, or win/loss charts designed for compact dashboard scorecards.",
+          "marksAwarded": 0,
+          "totalMarks": 1
+        }
+      ],
+      "practicalBreakdown": [
+        {
+          "problemId": "prac-1",
+          "title": "Problem Statement 1: High-Volume Sales & Dynamic Lookup Pipeline",
+          "scenario": "You are a Senior Data Analyst at RetailCorp working on an unlinked transactional dataset. In the Master Product Catalog located in sheet 'Catalog' (Range A2:D100), Column A contains 'Product_Name', Column B contains 'SKU_Code', Column C contains 'Category', and Column D contains 'Unit_Price'. In your Orders sheet at row 5, the customer ordered item has SKU_Code in Cell B5.",
+          "problemScore": 10,
+          "totalMarks": 10,
+          "stepBreakdown": [
+            {
+              "stepId": "p1-s1",
+              "instruction": "Write the modern XLOOKUP formula for Cell C5 to fetch the 'Product_Name' (Catalog Column A2:A100) using SKU_Code in Cell B5 (Catalog Column B2:B100). If the SKU does not exist, return 'Invalid SKU'.",
+              "userFormula": "=XLOOKUP(B5, Catalog!B2:B100, Catalog!A2:A100, \"Invalid SKU\")",
+              "expectedFormula": "=XLOOKUP(B5, Catalog!B2:B100, Catalog!A2:A100, \"Invalid SKU\")",
+              "passed": true,
+              "marksAwarded": 4,
+              "totalMarks": 4,
+              "feedback": "✅ Perfect syntax and cell referencing!"
+            },
+            {
+              "stepId": "p1-s2",
+              "instruction": "Write the XLOOKUP formula for Cell D5 to fetch the 'Unit_Price' (Catalog Column D2:D100) using SKU_Code in Cell B5. If missing, return 0.",
+              "userFormula": "=XLOOKUP(B5, Catalog!B2:B100, Catalog!D2:D100, 0)",
+              "expectedFormula": "=XLOOKUP(B5, Catalog!B2:B100, Catalog!D2:D100, 0)",
+              "passed": true,
+              "marksAwarded": 3,
+              "totalMarks": 3,
+              "feedback": "✅ Perfect syntax and cell referencing!"
+            },
+            {
+              "stepId": "p1-s3",
+              "instruction": "Write the calculation formula for Total Revenue in Cell F5 multiplying Unit_Price (D5) by Quantity (E5), applying a 10% discount if Quantity is 4 or greater, otherwise no discount.",
+              "userFormula": "=IF(E5>=4, (D5*E5)*0.9, D5*E5)",
+              "expectedFormula": "=IF(E5>=4, (D5*E5)*0.9, D5*E5)",
+              "passed": true,
+              "marksAwarded": 3,
+              "totalMarks": 3,
+              "feedback": "✅ Perfect syntax and cell referencing!"
+            }
+          ]
+        },
+        {
+          "problemId": "prac-2",
+          "title": "Problem Statement 2: Multi-Criteria KPI Aggregations & Commission Engine",
+          "scenario": "You are auditing regional performance in a sales database (Range A2:E500). Column A is 'Region', Column B is 'SalesRep', Column C is 'ClientType' (e.g. Enterprise, SMB), Column D is 'DealsClosed', and Column E is 'Revenue'.",
+          "problemScore": 0,
+          "totalMarks": 10,
+          "stepBreakdown": [
+            {
+              "stepId": "p2-s1",
+              "instruction": "Write the SUMIFS formula to compute the total Revenue (Column E2:E500) generated ONLY by 'North' Region (Column A2:A500) from 'Enterprise' ClientType (Column C2:C500).",
+              "userFormula": "No formula entered",
+              "expectedFormula": "=SUMIFS(E2:E500, A2:A500, \"North\", C2:C500, \"Enterprise\")",
+              "passed": false,
+              "marksAwarded": 0,
+              "totalMarks": 5,
+              "feedback": "❌ Incorrect. Recommended Data Analyst approach: =SUMIFS(E2:E500, A2:A500, \"North\", C2:C500, \"Enterprise\")"
+            },
+            {
+              "stepId": "p2-s2",
+              "instruction": "Write a dynamic IFS formula in Cell F2 to calculate SalesRep Incentive tier: If Revenue (E2) >= 150000 and DealsClosed (D2) >= 10 return 'Platinum'; if Revenue (E2) >= 90000 return 'Gold'; otherwise return 'Standard'.",
+              "userFormula": "No formula entered",
+              "expectedFormula": "=IFS(AND(E2>=150000, D2>=10), \"Platinum\", E2>=90000, \"Gold\", TRUE, \"Standard\")",
+              "passed": false,
+              "marksAwarded": 0,
+              "totalMarks": 5,
+              "feedback": "❌ Incorrect. Recommended Data Analyst approach: =IFS(AND(E2>=150000, D2>=10), \"Platinum\", E2>=90000, \"Gold\", TRUE, \"Standard\")"
+            }
+          ]
+        },
+        {
+          "problemId": "prac-3",
+          "title": "Problem Statement 3: Dynamic Array Filter & Clean Data Pipeline",
+          "scenario": "You have a messy customer churn log in Table 'RawData' (Range A2:D300). Column A is Customer_ID, Column B is Status (e.g. 'Churned', 'Active'), Column C is Monthly_Spend, Column D is Cleaned_City.",
+          "problemScore": 0,
+          "totalMarks": 10,
+          "stepBreakdown": [
+            {
+              "stepId": "p3-s1",
+              "instruction": "Write a dynamic FILTER formula to extract all rows (A2:D300) where Status (B2:B300) is 'Churned' AND Monthly_Spend (C2:C300) is greater than 400. If no rows match, return 'No High Value Churn'.",
+              "userFormula": "No formula entered",
+              "expectedFormula": "=FILTER(A2:D300, (B2:B300=\"Churned\") * (C2:C300>400), \"No High Value Churn\")",
+              "passed": false,
+              "marksAwarded": 0,
+              "totalMarks": 5,
+              "feedback": "❌ Incorrect. Recommended Data Analyst approach: =FILTER(A2:D300, (B2:B300=\"Churned\") * (C2:C300>400), \"No High Value Churn\")"
+            },
+            {
+              "stepId": "p3-s2",
+              "instruction": "Write the formula to wrap the dynamic filtered list above so that it is automatically SORTED by Monthly_Spend (Column index 3 in the array) in Descending order (-1).",
+              "userFormula": "No formula entered",
+              "expectedFormula": "=SORT(FILTER(A2:D300, (B2:B300=\"Churned\") * (C2:C300>400), \"No High Value Churn\"), 3, -1)",
+              "passed": false,
+              "marksAwarded": 0,
+              "totalMarks": 5,
+              "feedback": "❌ Incorrect. Recommended Data Analyst approach: =SORT(FILTER(A2:D300, (B2:B300=\"Churned\") * (C2:C300>400), \"No High Value Churn\"), 3, -1)"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "masterShortcuts": [
+    {
+      "category": "Essential Navigation & Selection",
+      "key": "Ctrl + Shift + L",
+      "action": "Toggle AutoFilter Dropdowns on table headers",
+      "why": "Instantly filter or sort 50k rows in 1 second without touching mouse."
+    },
+    {
+      "category": "Essential Navigation & Selection",
+      "key": "F4",
+      "action": "Toggle Absolute Cell Lock ($A$1 ➔ A$1 ➔ $A1 ➔ A1)",
+      "why": "Essential when multiplying transactional columns by fixed tax or exchange rate cells."
+    },
+    {
+      "category": "Essential Navigation & Selection",
+      "key": "Alt + H + O + I",
+      "action": "Auto-fit all column widths perfectly",
+      "why": "Eliminates ### column overflow errors instantly."
+    },
+    {
+      "category": "Essential Navigation & Selection",
+      "key": "Ctrl + T",
+      "action": "Convert raw range into Official Table",
+      "why": "Enables auto-expanding Pivot Tables and structured formula references."
+    },
+    {
+      "category": "Essential Navigation & Selection",
+      "key": "Ctrl + 1",
+      "action": "Open Format Cells Dialog box",
+      "why": "Quickly configure Custom Formats, Dates, and Currencies."
+    },
+    {
+      "category": "Formulas & Calculations",
+      "key": "Alt + =",
+      "action": "AutoSum adjacent rows or columns",
+      "why": "Inserts =SUM() automatically above or beside active numbers."
+    },
+    {
+      "category": "Formulas & Calculations",
+      "key": "Shift + F3",
+      "action": "Open Insert Function Wizard",
+      "why": "Provides visual parameter helper boxes for any Excel formula."
+    },
+    {
+      "category": "Formulas & Calculations",
+      "key": "Ctrl + ~ (Tilde)",
+      "action": "Show all Formulas across entire worksheet",
+      "why": "Audit sheets and verify formula logic without clicking individual cells."
+    },
+    {
+      "category": "Data Cleaning & Wrangling",
+      "key": "Ctrl + E",
+      "action": "Trigger Flash Fill",
+      "why": "Automatically splits Full Names, IDs, and Phone numbers by recognizing patterns."
+    },
+    {
+      "category": "Data Cleaning & Wrangling",
+      "key": "Alt + A + V + V",
+      "action": "Open Data Validation Dialog",
+      "why": "Create dropdown restriction lists to prevent user typos."
+    },
+    {
+      "category": "Data Cleaning & Wrangling",
+      "key": "Ctrl + H",
+      "action": "Find and Replace",
+      "why": "Mass replace bad strings, delimiters, or unwanted symbols across millions of cells."
+    },
+    {
+      "category": "Pivot Tables & Analysis",
+      "key": "Alt + N + V",
+      "action": "Insert Pivot Table",
+      "why": "Create cross-tab summary reports in 2 seconds."
+    },
+    {
+      "category": "Pivot Tables & Analysis",
+      "key": "Ctrl + Alt + F5",
+      "action": "Refresh All Data Connections & Pivot Tables",
+      "why": "Syncs all reports when new backend data is appended."
+    },
+    {
+      "category": "VBA & Developer Tools",
+      "key": "Alt + F11",
+      "action": "Open Visual Basic Editor (VBA)",
+      "why": "Write and debug automated macros and custom UDF functions."
+    },
+    {
+      "category": "VBA & Developer Tools",
+      "key": "Alt + F8",
+      "action": "Open Macro Execution Window",
+      "why": "Select and run automated scripts."
+    }
+  ]
+}
