@@ -11,13 +11,14 @@ import {
   Layers,
   CheckCircle
 } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 export default function PowerBiHub({ language = 'en', onScheduleClick }) {
   const [sessions, setSessions] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/powerbi')
+    fetch(`${API_BASE_URL}/api/powerbi`)
       .then(res => res.json())
       .then(data => {
         if (data.success) {

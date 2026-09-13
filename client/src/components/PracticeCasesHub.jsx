@@ -15,6 +15,7 @@ import {
   Search,
   Filter
 } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 export default function PracticeCasesHub({ language = 'en' }) {
   const [cases, setCases] = useState([]);
@@ -25,7 +26,7 @@ export default function PracticeCasesHub({ language = 'en' }) {
   const [formulaFeedback, setFormulaFeedback] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/practice-cases')
+    fetch(`${API_BASE_URL}/api/practice-cases`)
       .then(res => res.json())
       .then(data => {
         if (data.success) {

@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import { 
   Award, 
   Clock, 
@@ -16,6 +15,7 @@ import {
   Share2
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { API_BASE_URL } from '../config';
 
 export default function AssessmentTest({ language = 'en', onComplete }) {
   const [testData, setTestData] = useState(null);
@@ -34,7 +34,7 @@ export default function AssessmentTest({ language = 'en', onComplete }) {
 
   // Fetch sanitized test bank from backend
   useEffect(() => {
-    fetch('http://localhost:5000/api/test/assessment')
+    fetch(`${API_BASE_URL}/api/test/assessment`)
       .then(res => res.json())
       .then(data => {
         if (data.success) {
@@ -95,7 +95,7 @@ export default function AssessmentTest({ language = 'en', onComplete }) {
   const handleSubmitTest = async () => {
     setIsSubmitting(true);
     try {
-      const response = await fetch('http://localhost:5000/api/test/submit', {
+      const response = await fetch(`${API_BASE_URL}/api/test/submit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

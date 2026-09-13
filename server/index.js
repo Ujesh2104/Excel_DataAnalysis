@@ -27,7 +27,11 @@ app.get('/health', (req, res) => {
   res.json({ status: 'healthy', timestamp: new Date().toISOString(), platform: 'Excel Mastery Pro API' });
 });
 
-// Start Server
-app.listen(PORT, () => {
-  console.log(`🚀 Excel Mastery Pro Server running on http://localhost:${PORT}`);
-});
+// Start Server when run directly
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`🚀 Excel Mastery Pro Server running on http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;

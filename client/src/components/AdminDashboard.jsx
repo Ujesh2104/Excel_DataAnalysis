@@ -14,6 +14,7 @@ import {
   LogOut,
   Download
 } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 export default function AdminDashboard({ adminUser, onLogout, language = 'en' }) {
   const [activeAdminTab, setActiveAdminTab] = useState('analytics'); // 'analytics', 'powerbi_create', 'test_manager'
@@ -44,7 +45,7 @@ export default function AdminDashboard({ adminUser, onLogout, language = 'en' })
 
   const fetchAnalytics = () => {
     setLoading(true);
-    fetch('http://localhost:5000/api/admin/analytics')
+    fetch(`${API_BASE_URL}/api/admin/analytics`)
       .then(res => res.json())
       .then(data => {
         if (data.success) {
@@ -70,7 +71,7 @@ export default function AdminDashboard({ adminUser, onLogout, language = 'en' })
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/admin/powerbi/create', {
+      const response = await fetch(`${API_BASE_URL}/api/admin/powerbi/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -113,7 +114,7 @@ export default function AdminDashboard({ adminUser, onLogout, language = 'en' })
     const options = [mcqOptionA, mcqOptionB, mcqOptionC, mcqOptionD].filter(Boolean);
 
     try {
-      const response = await fetch('http://localhost:5000/api/admin/test/mcq', {
+      const response = await fetch(`${API_BASE_URL}/api/admin/test/mcq`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -11,6 +11,7 @@ import AssessmentTest from './components/AssessmentTest';
 import PowerBiHub from './components/PowerBiHub';
 import AdminDashboard from './components/AdminDashboard';
 import AdminLoginModal from './components/AdminLoginModal';
+import { API_BASE_URL } from './config';
 import { 
   FileSpreadsheet, 
   Sparkles, 
@@ -72,7 +73,7 @@ export default function App() {
 
   // Fetch modules from server
   useEffect(() => {
-    fetch('http://localhost:5000/api/modules')
+    fetch(`${API_BASE_URL}/api/modules`)
       .then(res => res.json())
       .then(data => {
         if (data.success) {
